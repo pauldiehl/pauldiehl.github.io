@@ -1,0 +1,20 @@
+{
+  "protocol": "web4-identity",
+  "version": "0.1.0",
+  "domain": "pauldiehl.github.io",
+  "display_name": "Paul Diehl (Milliprime / 1KH)",
+  "type": "individual",
+  "bio": "Builder. Writer. Milliprime. Architect of the Web 4.0 trust economy. Building systems where AI agents serve humans, not platforms.",
+  "created": "2026-03-05T00:00:00Z",
+  "links": {
+    "website": "https://pauldiehl.github.io",
+    "github": "https://github.com/sovereign-streams",
+    "manvshealth": "https://manvshealth.com"
+  },
+  "identity_model": {
+    "primary": "domain",
+    "signing": "npub",
+    "key_managed_by": "agent",
+    "human_interaction_required": false
+  }
+}

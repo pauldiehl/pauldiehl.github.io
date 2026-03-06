@@ -1,0 +1,42 @@
+{
+  "protocol": "web4-haves",
+  "version": "0.1.0",
+  "updated": "2026-03-05T00:00:00Z",
+  "offerings": [
+    {
+      "category": "system",
+      "title": "Web 4.0 Architecture & Protocol Library",
+      "description": "Complete architecture for the post-platform trust economy. 20+ protocols, governance frameworks, agent communication specs. All open.",
+      "availability": "available",
+      "terms": "open_source"
+    },
+    {
+      "category": "service",
+      "title": "ManVsHealth — AI Health for Men 40+",
+      "description": "Running health platform with real users and revenue. SMS-first, AI-powered personalized plans. The Web 4.0 reference implementation.",
+      "availability": "available",
+      "terms": "direct_payment"
+    },
+    {
+      "category": "knowledge",
+      "title": "Product Strategy & Trust Economics",
+      "description": "20+ years building products. Deep expertise in streaming, health tech, agentic systems, and trust-based business models.",
+      "availability": "available",
+      "terms": "conversation_first"
+    },
+    {
+      "category": "toolkit",
+      "title": "The Protocol Explorer",
+      "description": "Onboarding toolkit that takes anyone from zero to Web 4.0 node. Press a button, deploy protocols, join the economy.",
+      "availability": "in_development",
+      "terms": "open_source"
+    },
+    {
+      "category": "connection",
+      "title": "Coalition Network",
+      "description": "Growing network of builders, creators, and businesses adopting Web 4.0 protocols.",
+      "availability": "by_introduction",
+      "terms": "trust_based"
+    }
+  ]
+}

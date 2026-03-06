@@ -1,0 +1,34 @@
+{
+  "protocol": "web4-payments",
+  "version": "0.1.0",
+  "rails": [
+    {
+      "type": "stripe",
+      "description": "Standard payment processing for subscriptions and one-time purchases",
+      "currencies": ["USD"],
+      "use_case": "human_customers"
+    },
+    {
+      "type": "x402",
+      "description": "Micropayment rail for agent-to-agent transactions. Agents can purchase content, data exports, or services on behalf of their humans.",
+      "chain": "base",
+      "token": "USDC",
+      "use_case": "agent_transactions",
+      "status": "planned"
+    }
+  ],
+  "preferences": {
+    "preferred": "stripe",
+    "agent_rail": "x402",
+    "micropayment_threshold": "1.00"
+  },
+  "favor_economy": {
+    "enabled": true,
+    "description": "Coalition members and contributors get reciprocal value. Help us, we help you. No ledger, just goodwill."
+  },
+  "transparency": {
+    "pricing_public": true,
+    "revenue_model": "subscription",
+    "note": "What you see is what you pay. We don't hide fees or upsell through dark patterns."
+  }
+}

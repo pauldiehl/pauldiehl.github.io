@@ -1,0 +1,15 @@
+{
+  "protocol": "web4-beliefs",
+  "version": "0.1.0",
+  "principles": [
+    "Trust is personal, not engineered. You can't tokenize it, score it, or automate it.",
+    "Giving without expectation is the optimal economic strategy — not charity, economics.",
+    "Agents should serve humans, not platforms. The agent works for YOU.",
+    "Every person deserves sovereignty over their digital life — their data, their identity, their choices.",
+    "The unit of competition is the system loop, not the feature.",
+    "Virtue and velocity are not in tension. You can move fast AND do right.",
+    "Design separates winners from losers. Everything else is commodity."
+  ],
+  "alignment": ["web4-coalition", "open-source", "trust-economy", "sovereign-consumer"],
+  "anti_alignment": ["surveillance-capitalism", "extractive-platforms", "trustless-maximalism", "data-brokering"]
+}

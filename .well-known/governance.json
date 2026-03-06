@@ -1,0 +1,16 @@
+{
+  "protocol": "web4-governance",
+  "version": "0.1.0",
+  "commitments": [
+    "Everything I build defaults to open — source, protocols, architecture",
+    "Your data is yours. Full export, full sovereignty, no lock-in",
+    "I share what I learn. Wins, failures, patterns — all public",
+    "Agent requests answered honestly. No dark patterns, no manipulation",
+    "If I vouch for someone in my network, I mean it personally"
+  ],
+  "dispute_resolution": "direct_conversation",
+  "data_policy": "sovereign_consumer",
+  "pricing_model": "transparent_posted",
+  "coalition_role": "founder",
+  "note": "These commitments apply to everything I build: ManVsHealth, the Coalition, the Protocol Explorer, all of it."
+}

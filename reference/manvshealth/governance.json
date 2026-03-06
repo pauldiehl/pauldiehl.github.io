@@ -1,0 +1,23 @@
+{
+  "protocol": "web4-governance",
+  "version": "0.1.0",
+  "commitments": [
+    "Your health data is sovereign — you own it, can export it, can delete it, can leave anytime",
+    "We never sell, share, or broker your data. Period.",
+    "Transparent pricing — what you pay is what we charge, less payment processing",
+    "AI recommendations are explainable — you see why your plan was created this way",
+    "24-hour response time for all support requests",
+    "No dark patterns — no guilt trips, no fake urgency, no manipulative nudges",
+    "Your agent can access your data on your behalf. We serve your agent like we serve you."
+  ],
+  "dispute_resolution": "direct_conversation",
+  "data_policy": "sovereign_consumer",
+  "pricing_model": "transparent_posted",
+  "data_rights": {
+    "export": "full_export_anytime",
+    "deletion": "complete_deletion_on_request",
+    "portability": "standard_json_format",
+    "agent_access": "full_read_with_user_consent"
+  },
+  "note": "These are real commitments to real customers. ManVsHealth is a running business, not a demo."
+}

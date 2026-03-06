@@ -1,0 +1,35 @@
+{
+  "protocol": "web4-needs",
+  "version": "0.1.0",
+  "updated": "2026-03-05T00:00:00Z",
+  "needs": [
+    {
+      "category": "customers",
+      "title": "Men 40+ Ready to Transform",
+      "description": "Men who are done with generic health advice and want a personalized, AI-powered system that meets them where they are.",
+      "urgency": "ongoing",
+      "what_i_offer": "A health system built around YOU — your data stays yours, your plan adapts to your life"
+    },
+    {
+      "category": "talent",
+      "title": "AI Health Coach Engineers",
+      "description": "Building the next generation of agent-native health coaching. Need people who understand multimodal LLMs and health domain.",
+      "urgency": "this_month",
+      "what_i_offer": "Full access to health data pipeline + coalition membership + open architecture"
+    },
+    {
+      "category": "partnership",
+      "title": "Health Content Creators",
+      "description": "Creators who want to reach men 40+ with quality health content through a platform that respects both creator and consumer.",
+      "urgency": "this_quarter",
+      "what_i_offer": "Distribution to engaged audience + Web 4.0 protocol integration + transparent revenue sharing"
+    },
+    {
+      "category": "feedback",
+      "title": "Protocol Testing Partners",
+      "description": "We're the first business deploying Web 4.0 protocols in production. Need feedback on what works, what breaks, what's missing.",
+      "urgency": "ongoing",
+      "what_i_offer": "Full implementation transparency + reciprocal protocol review"
+    }
+  ]
+}

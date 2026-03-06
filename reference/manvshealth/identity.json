@@ -1,0 +1,20 @@
+{
+  "protocol": "web4-identity",
+  "version": "0.1.0",
+  "domain": "manvshealth.com",
+  "display_name": "Man Vs Health",
+  "type": "business",
+  "bio": "AI-powered health system for men 40+. Personalized nutrition, fitness, and health tracking. SMS-first, human-centered, sovereignty-default.",
+  "created": "2026-03-05T00:00:00Z",
+  "links": {
+    "website": "https://manvshealth.com",
+    "founder": "https://pauldiehl.github.io"
+  },
+  "identity_model": {
+    "primary": "domain",
+    "signing": "npub",
+    "key_managed_by": "agent",
+    "human_interaction_required": false,
+    "note": "Domain for discovery. Keypair for verification. Agent handles both."
+  }
+}

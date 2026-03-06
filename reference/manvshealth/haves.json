@@ -1,0 +1,49 @@
+{
+  "protocol": "web4-haves",
+  "version": "0.1.0",
+  "updated": "2026-03-05T00:00:00Z",
+  "offerings": [
+    {
+      "category": "service",
+      "title": "Personalized Health Plans (The Man Plan)",
+      "description": "AI-powered nutrition and fitness plans customized for men 40+. Adapts to your body, your goals, your life. Delivered via SMS.",
+      "availability": "available",
+      "terms": "subscription"
+    },
+    {
+      "category": "service",
+      "title": "Health Tracking & Accountability",
+      "description": "SMS-based daily tracking for weight, nutrition, fitness, energy. Your AI coach checks in, adjusts, keeps you honest.",
+      "availability": "available",
+      "terms": "subscription"
+    },
+    {
+      "category": "content",
+      "title": "Mean Clean Lean — The Book",
+      "description": "Comprehensive guide to men's health after 40. Nutrition science, fitness programming, mindset work. Available for purchase.",
+      "availability": "available",
+      "terms": "direct_payment"
+    },
+    {
+      "category": "service",
+      "title": "Doctor Consultations",
+      "description": "Connect with healthcare professionals who understand the ManVsHealth approach. Integrated into your health journey.",
+      "availability": "available",
+      "terms": "direct_payment"
+    },
+    {
+      "category": "knowledge",
+      "title": "Men's Health After 40 Expertise",
+      "description": "Deep domain knowledge in nutrition, fitness, and health optimization for men in their 40s, 50s, and beyond.",
+      "availability": "available",
+      "terms": "conversation_first"
+    },
+    {
+      "category": "data",
+      "title": "Your Sovereign Health Data",
+      "description": "All your health tracking data, exportable in standard JSON. Your data, your sovereignty, always.",
+      "availability": "available",
+      "terms": "free_for_members"
+    }
+  ]
+}

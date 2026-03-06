@@ -1,0 +1,35 @@
+{
+  "protocol": "web4-needs",
+  "version": "0.1.0",
+  "updated": "2026-03-05T00:00:00Z",
+  "needs": [
+    {
+      "category": "talent",
+      "title": "Agent Protocol Engineers",
+      "description": "People who understand MCP, A2A, and can build agent handshake endpoints. Building the Protocol Explorer toolkit.",
+      "urgency": "this_month",
+      "what_i_offer": "Full access to Web 4.0 architecture + coalition membership + co-building credit"
+    },
+    {
+      "category": "feedback",
+      "title": "Protocol Design Review",
+      "description": "I've drafted 20+ protocols for the trust economy. Need builders to stress-test them against real use cases.",
+      "urgency": "ongoing",
+      "what_i_offer": "Reciprocal review + open implementation sharing"
+    },
+    {
+      "category": "partnership",
+      "title": "First Coalition Members",
+      "description": "Businesses and creators willing to deploy Web 4.0 protocols on their domains. Be the first wave.",
+      "urgency": "this_month",
+      "what_i_offer": "Complete onboarding via Protocol Explorer + architecture guidance + trust network inclusion"
+    },
+    {
+      "category": "knowledge",
+      "title": "x402 Production Experience",
+      "description": "Has anyone deployed x402 micropayments in production? Need real-world patterns for agent-to-agent transactions.",
+      "urgency": "this_quarter",
+      "what_i_offer": "Will share our implementation openly once built"
+    }
+  ]
+}

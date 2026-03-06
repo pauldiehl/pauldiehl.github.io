@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Press the Button — Enter Web 4.0</title>
+  <meta name="description" content="Press the button. Become a node in the Web 4.0 trust economy. One session. Real protocols. No gatekeepers.">
+  <meta property="og:title" content="Press the Button — Enter Web 4.0">
+  <meta property="og:description" content="From zero to Web 4.0 node in one session. The trust economy starts with a button.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pauldiehl.github.io/button.html">
+  <style>
+    :root {
+      --bg: #0c0c10;
+      --surface: #14141a;
+      --surface2: #1a1a24;
+      --border: #252530;
+      --text: #e4e4ec;
+      --dim: #7a7a90;
+      --accent: #e8735a;
+      --accent2: #f4a261;
+      --accent3: #ffd166;
+      --trust: #6ec8a0;
+      --glow: rgba(232, 115, 90, 0.15);
+      --trust-glow: rgba(110, 200, 160, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      text-align: center;
+      padding: 5rem 1.5rem 3rem;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 span { color: var(--trust); }
+    .hero .subtitle {
+      font-size: 1.15rem;
+      color: var(--dim);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+    .hero .back-link {
+      display: inline-block;
+      color: var(--dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .hero .back-link:hover { color: var(--trust); }
+
+    /* ---- THE BUTTON ---- */
+    .the-button {
+      display: inline-block;
+      padding: 1.1rem 3rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--trust);
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+    .the-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(110, 200, 160, 0.35);
+    }
+    .the-button:active { transform: translateY(0); }
+
+    /* ---- STEPS ---- */
+    .step {
+      display: none;
+      padding: 2rem 0 4rem;
+      animation: fadeUp 0.4s ease;
+    }
+    .step.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- PROGRESS ---- */
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .progress-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: all 0.3s;
+    }
+    .progress-dot.active { background: var(--trust); box-shadow: 0 0 8px rgba(110, 200, 160, 0.4); }
+    .progress-dot.done { background: var(--trust); opacity: 0.5; }
+
+    /* ---- STEP HEADERS ---- */
+    .step h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .step .step-desc {
+      text-align: center;
+      color: var(--dim);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ---- PERSONA CARDS ---- */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .persona-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-align: left;
+    }
+    .persona-card:hover {
+      border-color: var(--trust);
+      background: var(--surface2);
+      transform: translateY(-2px);
+    }
+    .persona-card.selected {
+      border-color: var(--trust);
+      background: rgba(110, 200, 160, 0.08);
+      box-shadow: 0 0 20px rgba(110, 200, 160, 0.1);
+    }
+    .persona-card .icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .persona-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .persona-card p {
+      font-size: 0.82rem;
+      color: var(--dim);
+      line-height: 1.5;
+    }
+
+    /* ---- CONTEXT FORM ---- */
+    .context-form {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--trust);
+    }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .next-btn {
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--trust);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .next-btn:hover { box-shadow: 0 4px 20px rgba(110, 200, 160, 0.3); }
+    .next-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .skip-btn {
+      display: block;
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--dim);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .skip-btn:hover { border-color: var(--dim); color: var(--text); }
+
+    /* ---- PROTOCOL KIT ---- */
+    .kit-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .kit-header .persona-badge {
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      background: rgba(110, 200, 160, 0.1);
+      border: 1px solid rgba(110, 200, 160, 0.25);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--trust);
+      margin-bottom: 1rem;
+    }
+
+    .protocol-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .protocol-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .protocol-item:hover { border-color: rgba(110, 200, 160, 0.3); }
+    .protocol-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.2rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .protocol-item-header .left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .protocol-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(110, 200, 160, 0.15);
+      color: var(--trust);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .protocol-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .protocol-desc {
+      font-size: 0.8rem;
+      color: var(--dim);
+    }
+    .toggle-arrow {
+      color: var(--dim);
+      transition: transform 0.2s;
+      font-size: 0.8rem;
+    }
+    .protocol-item.open .toggle-arrow { transform: rotate(180deg); }
+    .protocol-body {
+      display: none;
+      padding: 0 1.2rem 1rem;
+    }
+    .protocol-item.open .protocol-body { display: block; }
+
+    .json-preview {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      color: var(--dim);
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre;
+    }
+    .json-preview .key { color: var(--trust); }
+    .json-preview .string { color: var(--accent2); }
+    .json-preview .bool { color: var(--accent); }
+
+    .copy-btn {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.75rem;
+      color: var(--dim);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { border-color: var(--trust); color: var(--trust); }
+
+    /* ---- REFERENCE SECTION ---- */
+    .reference-section {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .reference-section h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .reference-section .ref-desc {
+      color: var(--dim);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .ref-protocol {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--trust);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ref-protocol:hover { border-left-color: var(--accent2); background: var(--surface2); }
+    .ref-protocol h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .ref-protocol p {
+      font-size: 0.8rem;
+      color: var(--dim);
+      line-height: 1.5;
+    }
+    .ref-protocol .json-preview { margin-top: 0.75rem; display: none; }
+    .ref-protocol.open .json-preview { display: block; }
+
+    /* ---- WHAT'S NEXT ---- */
+    .next-steps {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .next-steps h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .cta-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: all 0.2s;
+    }
+    .cta-card:hover { border-color: var(--trust); }
+    .cta-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .cta-card p {
+      font-size: 0.85rem;
+      color: var(--dim);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+    .cta-card a {
+      color: var(--trust);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .cta-card a:hover { text-decoration: underline; }
+
+    /* ---- FOOTER ---- */
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--dim);
+      font-size: 0.8rem;
+    }
+    footer a { color: var(--trust); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 2rem; }
+      .persona-grid { grid-template-columns: 1fr; }
+      .hero { padding: 3rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <a href="index.html" class="back-link">&larr; pauldiehl.github.io</a>
+    <h1>Press the <span>Button</span></h1>
+    <p class="subtitle">Become a node in the Web 4.0 trust economy. One session. Real protocols. No gatekeepers.</p>
+    <button class="the-button" id="startBtn">Enter Web 4.0</button>
+  </section>
+
+  <div class="container">
+
+    <!-- STEP 1: WHO ARE YOU -->
+    <section class="step" id="step1">
+      <div class="progress">
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+      </div>
+      <h2>Who are you?</h2>
+      <p class="step-desc">This determines your starter kit. Pick what fits best right now.</p>
+      <div class="persona-grid">
+        <div class="persona-card" data-persona="curious">
+          <div class="icon">&#x1f50d;</div>
+          <h3>I'm Curious</h3>
+          <p>I've heard about Web 4.0 and want to understand what it means for me.</p>
+        </div>
+        <div class="persona-card" data-persona="creator">
+          <div class="icon">&#x1f3a8;</div>
+          <h3>I'm a Creator</h3>
+          <p>I make things — content, art, code, courses — and want to own my distribution.</p>
+        </div>
+        <div class="persona-card" data-persona="business">
+          <div class="icon">&#x1f3e2;</div>
+          <h3>I Run a Business</h3>
+          <p>I have customers, services, and want my business discoverable by AI agents.</p>
+        </div>
+        <div class="persona-card" data-persona="milliprime">
+          <div class="icon">&#x26a1;</div>
+          <h3>I'm a Builder</h3>
+          <p>I build systems. I want the full architecture, protocols, and specs.</p>
+        </div>
+        <div class="persona-card" data-persona="dreamer">
+          <div class="icon">&#x2728;</div>
+          <h3>I Have a Dream</h3>
+          <p>I have an idea but no time or infrastructure. I want to broadcast it to the world.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2: CONTEXT -->
+    <section class="step" id="step2">
+      <div class="progress">
+        <div class="progress-dot done"></div>
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+      </div>
+      <h2 id="contextTitle">Tell me more</h2>
+      <p class="step-desc" id="contextDesc"></p>
+      <div class="context-form" id="contextForm">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- STEP 3: YOUR KIT -->
+    <section class="step" id="step3">
+      <div class="progress">
+        <div class="progress-dot done"></div>
+        <div class="progress-dot done"></div>
+        <div class="progress-dot active"></div>
+      </div>
+      <div class="kit-header">
+        <div class="persona-badge" id="kitBadge"></div>
+        <h2>Your Protocol Starter Kit</h2>
+        <p class="step-desc">These protocols make you discoverable, trustworthy, and transactable in the Web 4.0 economy. Click any to preview.</p>
+      </div>
+      <div class="protocol-list" id="protocolList">
+        <!-- Dynamically populated -->
+      </div>
+
+      <!-- Hosting Tiers -->
+      <div class="reference-section" id="hostingSection">
+        <h3>Where Will You Live?</h3>
+        <p class="ref-desc">Your protocols need a home. Pick where you are right now — you can always upgrade later.</p>
+        <div class="hosting-tiers" id="hostingTiers">
+          <div class="cta-card" style="border-left: 3px solid var(--trust);">
+            <h4>Tier 1: Coalition Hosting — 60 seconds, free</h4>
+            <p>We host your protocols on coalition infrastructure. You're live immediately. You own your data and can migrate anytime. This is the fastest way onto the network.</p>
+          </div>
+          <div class="cta-card" style="border-left: 3px solid var(--accent2);">
+            <h4>Tier 2: GitHub Pages — 5 minutes, free</h4>
+            <p>Your agent creates a repository and deploys your protocols. You own the repo. Full control at username.github.io. No cost.</p>
+            <a href="https://pages.github.com/" target="_blank" rel="noopener">How GitHub Pages works &#8594;</a>
+          </div>
+          <div class="cta-card" style="border-left: 3px solid var(--accent);">
+            <h4>Tier 3: Your Own Domain — $12/year, full sovereignty</h4>
+            <p>A domain you own, pointed at your protocols. Fully portable, fully sovereign. yourdomain.com/.well-known/ — this is the endgame.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MVH Reference -->
+      <div class="reference-section">
+        <h3>See It Live: ManVsHealth</h3>
+        <p class="ref-desc">ManVsHealth is a real business — AI health coaching for men 40+ — running on these exact protocols. Here's what their deployment looks like:</p>
+        <div id="mvhReference">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Next Steps -->
+      <div class="next-steps" id="nextSteps">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Built by <a href="index.html">Paul Diehl</a> &middot; <a href="https://github.com/sovereign-streams/web4">Web 4.0 Architecture</a> &middot; <a href="https://manvshealth.com">ManVsHealth</a></p>
+  </footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // ---- STATE ----
+  let currentPersona = null;
+  let userContext = {};
+
+  // ---- MVH REFERENCE DATA ----
+  const mvhProtocols = {
+    governance: {
+      title: 'ManVsHealth Governance',
+      desc: 'Real commitments to real customers',
+      data: {"protocol":"web4-governance","version":"0.1.0","commitments":["Your health data is sovereign \u2014 you own it, can export it, can delete it, can leave anytime","We never sell, share, or broker your data. Period.","Transparent pricing \u2014 what you pay is what we charge, less payment processing","AI recommendations are explainable \u2014 you see why your plan was created this way","No dark patterns \u2014 no guilt trips, no fake urgency, no manipulative nudges","Your agent can access your data on your behalf. We serve your agent like we serve you."],"dispute_resolution":"direct_conversation","data_policy":"sovereign_consumer"}
+    },
+    haves: {
+      title: 'ManVsHealth Offerings',
+      desc: 'What MVH brings to the table',
+      data: {"protocol":"web4-haves","version":"0.1.0","offerings":[{"category":"service","title":"Personalized Health Plans (The Man Plan)","description":"AI-powered nutrition and fitness plans customized for men 40+.","availability":"available"},{"category":"service","title":"Health Tracking & Accountability","description":"SMS-based daily tracking. Your AI coach checks in, adjusts, keeps you honest.","availability":"available"},{"category":"content","title":"Mean Clean Lean \u2014 The Book","description":"Comprehensive guide to men's health after 40.","availability":"available"},{"category":"data","title":"Your Sovereign Health Data","description":"All your health data, exportable in standard JSON. Your data, always.","availability":"available"}]}
+    },
+    payments: {
+      title: 'ManVsHealth Payments',
+      desc: 'How value moves',
+      data: {"protocol":"web4-payments","version":"0.1.0","rails":[{"type":"stripe","use_case":"human_customers","currencies":["USD"]},{"type":"x402","use_case":"agent_transactions","status":"planned","token":"USDC"}],"favor_economy":{"enabled":true,"description":"Coalition members get reciprocal value. Help us, we help you."}}
+    }
+  };
+
+  // ---- PERSONA CONFIGS ----
+  const personas = {
+    curious: {
+      label: 'Curious Explorer',
+      protocols: ['identity', 'beliefs'],
+      contextTitle: 'What caught your attention?',
+      contextDesc: 'No wrong answers. This helps us point you to the right starting place.',
+      fields: [
+        { id: 'interest', label: 'What interests you about Web 4.0?', type: 'textarea', placeholder: 'E.g., I want to own my data... I heard about trust-based AI... I\'m tired of platforms...' }
+      ],
+      nextSteps: [
+        { title: 'Read the Manifesto', desc: 'The full vision of Web 4.0 \u2014 why the platform era is ending and what comes next.', link: 'https://github.com/sovereign-streams/web4/blob/main/MANIFESTO.md', linkText: 'Read the Manifesto \u2192' },
+        { title: 'The 48 Laws of Trust', desc: 'A reversal of the Laws of Power. The economic case for trust, generosity, and sovereignty.', link: 'https://github.com/sovereign-streams/web4/blob/main/LAWS-OF-TRUST.md', linkText: 'Read the Laws \u2192' },
+        { title: 'Come Back When You\'re Ready', desc: 'Press the Button again as a creator, business, or builder. Your protocols will be waiting.', link: '#', linkText: 'Start over \u2192', action: 'restart' }
+      ]
+    },
+    creator: {
+      label: 'Creator / Producer',
+      protocols: ['identity', 'governance', 'haves', 'needs'],
+      contextTitle: 'What do you create?',
+      contextDesc: 'This shapes your protocol starter kit \u2014 what you broadcast to agents and the network.',
+      fields: [
+        { id: 'name', label: 'Your name or brand', type: 'text', placeholder: 'E.g., Sarah\'s Studio, The Fitness Channel...' },
+        { id: 'creates', label: 'What do you make?', type: 'textarea', placeholder: 'E.g., fitness videos, coding tutorials, design assets, written guides...' },
+        { id: 'wants', label: 'What would help you most right now?', type: 'textarea', placeholder: 'E.g., more audience, fair monetization, agent distribution, collaboration...' }
+      ],
+      nextSteps: [
+        { title: 'Deploy on GitHub Pages (Free)', desc: 'Create a free repository, drop your protocol JSON files in /.well-known/, and you\'re live. Agents can find you.', link: 'https://pages.github.com/', linkText: 'GitHub Pages guide \u2192' },
+        { title: 'Join the Coalition', desc: 'Connect with other creators deploying Web 4.0 protocols. Share audiences, not platforms.', link: 'https://github.com/sovereign-streams/web4/blob/main/COALITION.md', linkText: 'Read the Coalition thesis \u2192' },
+        { title: 'See the Architecture', desc: 'Dive deeper into how protocols, agents, and the trust economy work together.', link: 'https://github.com/sovereign-streams/web4', linkText: 'Full architecture \u2192' }
+      ]
+    },
+    business: {
+      label: 'Business Owner',
+      protocols: ['identity', 'governance', 'haves', 'needs', 'payments'],
+      contextTitle: 'Tell me about your business',
+      contextDesc: 'This builds your full protocol set \u2014 identity, governance, offerings, needs, and payment rails.',
+      fields: [
+        { id: 'name', label: 'Business name', type: 'text', placeholder: 'E.g., Joey\'s Payments Co, BrightPath Solutions...' },
+        { id: 'does', label: 'What does your business do?', type: 'textarea', placeholder: 'E.g., we build payment infrastructure for small businesses...' },
+        { id: 'offers', label: 'What do you offer customers?', type: 'textarea', placeholder: 'E.g., payment gateway setup, consulting, API access...' },
+        { id: 'needs', label: 'What do you need right now?', type: 'textarea', placeholder: 'E.g., engineers, customers, partners, feedback...' }
+      ],
+      nextSteps: [
+        { title: 'Deploy to Your Domain', desc: 'Add /.well-known/ to your existing website. Your protocols go live on YOUR domain. No middleman.', link: 'https://github.com/sovereign-streams/web4/blob/main/PROTOCOL-EXPLORER.md', linkText: 'Deployment guide \u2192' },
+        { title: 'See ManVsHealth in Production', desc: 'ManVsHealth runs these exact protocols on a real health business with real customers and real revenue.', link: 'https://manvshealth.com', linkText: 'Visit ManVsHealth \u2192' },
+        { title: 'Join the Coalition', desc: 'Connect with businesses building the trust economy. Shared discovery, shared protocols, no shared platform.', link: 'https://github.com/sovereign-streams/web4/blob/main/COALITION.md', linkText: 'Join the Coalition \u2192' }
+      ]
+    },
+    milliprime: {
+      label: 'Milliprime / Builder',
+      protocols: ['identity', 'governance', 'haves', 'needs', 'beliefs'],
+      contextTitle: 'What are you building?',
+      contextDesc: 'You get everything \u2014 full protocol set, architecture access, and a seat at the table.',
+      fields: [
+        { id: 'name', label: 'Your name or project', type: 'text', placeholder: 'E.g., AgentForge, TrustLedger, my-protocol-project...' },
+        { id: 'building', label: 'What are you building?', type: 'textarea', placeholder: 'E.g., agent infrastructure, trust protocols, a new platform...' },
+        { id: 'wants', label: 'What do you need from the coalition?', type: 'textarea', placeholder: 'E.g., protocol review, co-builders, test users, architecture feedback...' }
+      ],
+      nextSteps: [
+        { title: 'Full Architecture Docs', desc: '20+ documents covering every layer of Web 4.0 \u2014 protocols, agents, payments, trust, governance, and syndication.', link: 'https://github.com/sovereign-streams/web4', linkText: 'Enter the architecture \u2192' },
+        { title: 'Protocol Explorer Spec', desc: 'The complete Protocol Explorer specification \u2014 every protocol schema, the matching engine, self-adaptive updates.', link: 'https://github.com/sovereign-streams/web4/blob/main/PROTOCOL-EXPLORER.md', linkText: 'Read the spec \u2192' },
+        { title: 'Build With Us', desc: 'The Coalition isn\'t a community \u2014 it\'s a trust network of builders. Your protocols vouch for you. Let\'s build.', link: 'https://github.com/sovereign-streams/web4/blob/main/COALITION.md', linkText: 'Join as a builder \u2192' }
+      ]
+    },
+    dreamer: {
+      label: 'Dreamer',
+      protocols: ['identity', 'beliefs', 'dream'],
+      contextTitle: 'Tell me your dream',
+      contextDesc: 'Broadcast your idea to the trust network. Someone might build it. Someone might fund it. Someone might just believe in it.',
+      fields: [
+        { id: 'name', label: 'Your name', type: 'text', placeholder: 'E.g., Ryan, Sarah, Alex...' },
+        { id: 'dream_title', label: 'What\u2019s the dream?', type: 'text', placeholder: 'E.g., A handstand coaching app, a neighborhood tool library...' },
+        { id: 'dream_desc', label: 'Describe it \u2014 what would it look like if it existed?', type: 'textarea', placeholder: 'E.g., A self-paced video course that teaches progressive handstand training for total beginners...' },
+        { id: 'what_you_bring', label: 'What do YOU bring to this? (even if it\u2019s just the idea)', type: 'textarea', placeholder: 'E.g., 10 years of handstand training, the full curriculum is in my head...' }
+      ],
+      nextSteps: [
+        { title: 'Your Dream Is Now a Beacon', desc: 'Your dream.json is a signal fire. Agents in the trust network will find it. Someone with matching haves might answer.', link: 'https://github.com/sovereign-streams/web4/blob/main/PROTOCOL-EXPLORER.md', linkText: 'How Dream Beacons work \u2192' },
+        { title: 'Join the Coalition', desc: 'Connect with builders and Milliprimes who turn dreams into products. Your beacon is the starting point.', link: 'https://github.com/sovereign-streams/web4/blob/main/COALITION.md', linkText: 'Meet the coalition \u2192' },
+        { title: 'Come Back When It\u2019s Real', desc: 'When your dream is achieved, update your beacon. Press the Button again as a creator or business owner. The dream evolves.', link: '#', linkText: 'Start over \u2192', action: 'restart' }
+      ]
+    }
+  };
+
+  // ---- PROTOCOL TEMPLATES ----
+  function generateProtocol(type, context) {
+    const name = context.name || 'Your Entity';
+    const bio = context.does || context.creates || context.building || context.interest || '';
+
+    const templates = {
+      identity: {
+        protocol: 'web4-identity',
+        version: '0.1.0',
+        domain: 'yourdomain.com',
+        display_name: name,
+        type: currentPersona === 'business' ? 'business' : 'individual',
+        bio: bio || 'A new node in the Web 4.0 trust economy.',
+        created: new Date().toISOString().split('T')[0] + 'T00:00:00Z',
+        identity_model: { primary: 'domain', signing: 'npub', key_managed_by: 'agent' }
+      },
+      governance: {
+        protocol: 'web4-governance',
+        version: '0.1.0',
+        commitments: [
+          'User data is sovereign \u2014 full export, full deletion, no lock-in',
+          'No data sold to third parties',
+          'Transparent pricing and terms',
+          'Agent requests answered honestly'
+        ],
+        dispute_resolution: 'direct_conversation',
+        data_policy: 'sovereign_consumer'
+      },
+      haves: {
+        protocol: 'web4-haves',
+        version: '0.1.0',
+        updated: new Date().toISOString(),
+        offerings: (context.offers || context.creates || '').split(/[,\n]/).filter(Boolean).map(function(item) {
+          return { category: 'service', title: item.trim(), availability: 'available', terms: 'conversation_first' };
+        })
+      },
+      needs: {
+        protocol: 'web4-needs',
+        version: '0.1.0',
+        updated: new Date().toISOString(),
+        needs: (context.needs || context.wants || '').split(/[,\n]/).filter(Boolean).map(function(item) {
+          return { category: 'general', title: item.trim(), urgency: 'this_month' };
+        })
+      },
+      beliefs: {
+        protocol: 'web4-beliefs',
+        version: '0.1.0',
+        principles: [
+          'Trust is personal, not engineered',
+          'Giving without expectation is the optimal strategy',
+          'Agents serve humans, not platforms',
+          'Every person deserves sovereignty over their digital life'
+        ],
+        alignment: ['web4-coalition', 'trust-economy']
+      },
+      payments: {
+        protocol: 'web4-payments',
+        version: '0.1.0',
+        rails: [
+          { type: 'stripe', use_case: 'human_customers', currencies: ['USD'] },
+          { type: 'x402', use_case: 'agent_transactions', status: 'planned', token: 'USDC' }
+        ],
+        favor_economy: { enabled: true, description: 'Goodwill tracked by agents. No ledger, just reciprocity.' }
+      },
+      dream: {
+        protocol: 'web4-dream',
+        version: '0.1.0',
+        dreamer: context.name || 'Anonymous Dreamer',
+        dream: {
+          title: context.dream_title || 'My Dream',
+          description: context.dream_desc || 'A dream waiting to be described.',
+          status: 'dreaming',
+          capacity: context.what_you_bring || 'The idea itself.',
+          open_to: ['builders', 'partners', 'believers']
+        },
+        values: (context.interest || '').split(/[,\n]/).filter(Boolean).map(function(v) { return v.trim(); })
+      }
+    };
+
+    // Enrich haves/needs with defaults if empty
+    if (templates.haves.offerings.length === 0) {
+      templates.haves.offerings = [{ category: 'service', title: 'Describe what you offer', availability: 'available', terms: 'conversation_first' }];
+    }
+    if (templates.needs.needs.length === 0) {
+      templates.needs.needs = [{ category: 'general', title: 'Describe what you need', urgency: 'this_month' }];
+    }
+
+    return templates[type];
+  }
+
+  // ---- JSON SYNTAX HIGHLIGHTING ----
+  function highlightJSON(obj) {
+    var json = JSON.stringify(obj, null, 2);
+    return json.replace(/("(?:[^"\\]|\\.)*")\s*:/g, '<span class="key">$1</span>:')
+               .replace(/:\s*("(?:[^"\\]|\\.)*")/g, ': <span class="string">$1</span>')
+               .replace(/:\s*(true|false|null)/g, ': <span class="bool">$1</span>');
+  }
+
+  // ---- COPY TO CLIPBOARD ----
+  function copyJSON(obj, btn) {
+    navigator.clipboard.writeText(JSON.stringify(obj, null, 2)).then(function() {
+      var orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.style.color = 'var(--trust)';
+      btn.style.borderColor = 'var(--trust)';
+      setTimeout(function() { btn.textContent = orig; btn.style.color = ''; btn.style.borderColor = ''; }, 1500);
+    });
+  }
+
+  // ---- RENDER STEP 2: CONTEXT FORM ----
+  function renderContextForm() {
+    var config = personas[currentPersona];
+    document.getElementById('contextTitle').textContent = config.contextTitle;
+    document.getElementById('contextDesc').textContent = config.contextDesc;
+
+    var form = document.getElementById('contextForm');
+    var html = '';
+
+    config.fields.forEach(function(field) {
+      if (field.type === 'textarea') {
+        html += '<div class="form-group"><label for="' + field.id + '">' + field.label + '</label>' +
+                '<textarea id="' + field.id + '" placeholder="' + field.placeholder + '" rows="3"></textarea></div>';
+      } else {
+        html += '<div class="form-group"><label for="' + field.id + '">' + field.label + '</label>' +
+                '<input type="text" id="' + field.id + '" placeholder="' + field.placeholder + '"></div>';
+      }
+    });
+
+    html += '<button class="next-btn" id="contextNext">Generate My Protocol Kit</button>';
+    html += '<button class="skip-btn" id="contextSkip">Skip \u2014 show me defaults</button>';
+    form.innerHTML = html;
+
+    document.getElementById('contextNext').addEventListener('click', function() {
+      config.fields.forEach(function(field) {
+        var el = document.getElementById(field.id);
+        if (el) userContext[field.id] = el.value;
+      });
+      showStep('step3');
+      renderKit();
+    });
+    document.getElementById('contextSkip').addEventListener('click', function() {
+      showStep('step3');
+      renderKit();
+    });
+  }
+
+  // ---- RENDER STEP 3: PROTOCOL KIT ----
+  function renderKit() {
+    var config = personas[currentPersona];
+    document.getElementById('kitBadge').textContent = config.label;
+
+    // Protocol list
+    var list = document.getElementById('protocolList');
+    var html = '';
+    config.protocols.forEach(function(proto) {
+      var data = generateProtocol(proto, userContext);
+      var filename = proto + '.json';
+      html += '<div class="protocol-item" data-proto="' + proto + '">' +
+              '<div class="protocol-item-header">' +
+              '<div class="left"><div class="protocol-check">\u2713</div>' +
+              '<div><div class="protocol-name">/.well-known/' + filename + '</div>' +
+              '<div class="protocol-desc">' + getProtoDesc(proto) + '</div></div></div>' +
+              '<div class="toggle-arrow">\u25BC</div></div>' +
+              '<div class="protocol-body">' +
+              '<div class="json-preview">' + highlightJSON(data) + '</div>' +
+              '<button class="copy-btn" data-proto-type="' + proto + '">Copy JSON</button>' +
+              '</div></div>';
+    });
+    list.innerHTML = html;
+
+    // Toggle protocol items
+    list.querySelectorAll('.protocol-item-header').forEach(function(header) {
+      header.addEventListener('click', function() {
+        header.parentElement.classList.toggle('open');
+      });
+    });
+
+    // Copy buttons
+    list.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var proto = btn.getAttribute('data-proto-type');
+        var data = generateProtocol(proto, userContext);
+        copyJSON(data, btn);
+      });
+    });
+
+    // MVH Reference
+    renderMVHReference();
+
+    // Next Steps
+    renderNextSteps(config.nextSteps);
+  }
+
+  function getProtoDesc(proto) {
+    var descs = {
+      identity: 'Who you are \u2014 your digital business card for agents',
+      governance: 'Your commitments \u2014 what agents and humans can expect from you',
+      haves: 'What you offer \u2014 your skills, services, and resources',
+      needs: 'What you need \u2014 your gaps, goals, and wishes',
+      beliefs: 'Your principles \u2014 a beacon for alignment-seeking agents',
+      payments: 'How value moves \u2014 your payment rails and preferences',
+      dream: 'Your signal fire \u2014 broadcast your dream to the trust network'
+    };
+    return descs[proto] || '';
+  }
+
+  function renderMVHReference() {
+    var container = document.getElementById('mvhReference');
+    var html = '';
+    Object.keys(mvhProtocols).forEach(function(key) {
+      var p = mvhProtocols[key];
+      html += '<div class="ref-protocol" data-ref="' + key + '">' +
+              '<h4>' + p.title + '</h4><p>' + p.desc + '</p>' +
+              '<div class="json-preview">' + highlightJSON(p.data) + '</div></div>';
+    });
+    container.innerHTML = html;
+
+    container.querySelectorAll('.ref-protocol').forEach(function(el) {
+      el.addEventListener('click', function() { el.classList.toggle('open'); });
+    });
+  }
+
+  function renderNextSteps(steps) {
+    var container = document.getElementById('nextSteps');
+    var html = '<h3>What\'s Next?</h3>';
+    steps.forEach(function(step) {
+      html += '<div class="cta-card"><h4>' + step.title + '</h4><p>' + step.desc + '</p>';
+      if (step.action === 'restart') {
+        html += '<a href="#" class="restart-link">' + step.linkText + '</a>';
+      } else {
+        html += '<a href="' + step.link + '" target="_blank" rel="noopener">' + step.linkText + '</a>';
+      }
+      html += '</div>';
+    });
+    container.innerHTML = html;
+
+    container.querySelectorAll('.restart-link').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        restart();
+      });
+    });
+  }
+
+  // ---- NAVIGATION ----
+  function showStep(stepId) {
+    document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+    document.getElementById(stepId).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function restart() {
+    currentPersona = null;
+    userContext = {};
+    document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelectorAll('.persona-card').forEach(function(c) { c.classList.remove('selected'); });
+    document.querySelector('.hero').style.display = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ---- INIT ----
+  document.getElementById('startBtn').addEventListener('click', function() {
+    document.querySelector('.hero').style.display = 'none';
+    showStep('step1');
+  });
+
+  document.querySelectorAll('.persona-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      document.querySelectorAll('.persona-card').forEach(function(c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      currentPersona = card.getAttribute('data-persona');
+
+      setTimeout(function() {
+        showStep('step2');
+        renderContextForm();
+      }, 300);
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
