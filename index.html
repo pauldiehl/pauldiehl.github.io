@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paul Diehl — Builder, Writer, Milliprime</title>
-  <meta name="description" content="I build systems that serve people. Architect of Web 4.0, author of The 48 Laws of Trust, founder of ManVsHealth. The trust economy starts here.">
-  <meta property="og:title" content="Paul Diehl — Builder of Web 4.0">
-  <meta property="og:description" content="Builder. Writer. Milliprime. Architect of the trust economy.">
+  <title>Paul Diehl — Vision · Platform · Dreams</title>
+  <meta name="description" content="Builder of Web 4.0. Architect of the trust economy. Vision, platform, and dreams — three layers of sovereign infrastructure.">
+  <meta property="og:title" content="Paul Diehl — Vision · Platform · Dreams">
+  <meta property="og:description" content="Web 4.0 vision. Sovereign platform. Real dreams. The trust economy starts here.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pauldiehl.github.io">
   <style>
@@ -23,14 +23,11 @@
       --trust: #6ec8a0;
       --glow: rgba(232, 115, 90, 0.15);
       --trust-glow: rgba(110, 200, 160, 0.12);
+      --gold-glow: rgba(255, 209, 102, 0.10);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 2rem;
-    }
+    html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -40,21 +37,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    .container-wide {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+    .container-wide { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
 
     /* ── HERO ── */
     .hero {
-      padding: 6rem 0 4rem;
+      padding: 6rem 0 3rem;
       border-bottom: 1px solid var(--border);
     }
 
@@ -87,41 +75,76 @@
       font-style: normal;
     }
 
-    /* ── NAV PILLS ── */
-    .nav-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 2rem;
+    /* ── THREE LAYERS NAV ── */
+    .layer-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
     }
 
-    .nav-pill {
-      display: inline-block;
-      padding: 0.4rem 1rem;
+    .layer-nav-item {
+      display: block;
+      padding: 1.25rem 1rem;
       border: 1px solid var(--border);
-      border-radius: 20px;
-      color: var(--dim);
+      border-radius: 10px;
       text-decoration: none;
-      font-size: 0.85rem;
-      transition: all 0.2s;
+      text-align: center;
+      transition: all 0.25s;
     }
 
-    .nav-pill:hover {
+    .layer-nav-item:hover { transform: translateY(-2px); }
+
+    .layer-nav-item.vision {
+      border-color: rgba(110, 200, 160, 0.3);
+      background: rgba(110, 200, 160, 0.04);
+    }
+    .layer-nav-item.vision:hover {
+      border-color: var(--trust);
+      background: rgba(110, 200, 160, 0.08);
+    }
+
+    .layer-nav-item.platform {
+      border-color: rgba(232, 115, 90, 0.3);
+      background: rgba(232, 115, 90, 0.04);
+    }
+    .layer-nav-item.platform:hover {
       border-color: var(--accent);
-      color: var(--accent);
-      background: var(--glow);
+      background: rgba(232, 115, 90, 0.08);
     }
 
-    .nav-pill.featured {
-      border-color: var(--trust);
-      color: var(--trust);
-      background: var(--trust-glow);
+    .layer-nav-item.dreams {
+      border-color: rgba(255, 209, 102, 0.3);
+      background: rgba(255, 209, 102, 0.04);
+    }
+    .layer-nav-item.dreams:hover {
+      border-color: var(--accent3);
+      background: rgba(255, 209, 102, 0.08);
     }
 
-    .nav-pill.featured:hover {
-      border-color: var(--trust);
-      color: white;
-      background: rgba(110, 200, 160, 0.25);
+    .layer-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.4rem;
+    }
+
+    .layer-nav-item.vision .layer-num { color: var(--trust); }
+    .layer-nav-item.platform .layer-num { color: var(--accent); }
+    .layer-nav-item.dreams .layer-num { color: var(--accent3); }
+
+    .layer-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .layer-subtitle {
+      font-size: 0.78rem;
+      color: var(--dim);
+      line-height: 1.4;
     }
 
     /* ── SECTIONS ── */
@@ -142,85 +165,99 @@
     }
 
     .section-label.trust { color: var(--trust); }
+    .section-label.gold { color: var(--accent3); }
 
     h2 {
       font-size: 1.6rem;
       font-weight: 700;
       letter-spacing: -0.5px;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── LAYER HEADER ── */
+    .layer-header {
+      padding: 2.5rem 0 0.5rem;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .layer-header .layer-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
       margin-bottom: 1rem;
     }
 
-    h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
+    .layer-badge.vision-badge {
+      color: var(--trust);
+      border: 1px solid rgba(110, 200, 160, 0.3);
+      background: rgba(110, 200, 160, 0.08);
     }
 
-    p + p { margin-top: 1rem; }
+    .layer-badge.platform-badge {
+      color: var(--accent);
+      border: 1px solid rgba(232, 115, 90, 0.3);
+      background: rgba(232, 115, 90, 0.08);
+    }
+
+    .layer-badge.dreams-badge {
+      color: var(--accent3);
+      border: 1px solid rgba(255, 209, 102, 0.3);
+      background: rgba(255, 209, 102, 0.08);
+    }
+
+    .layer-desc {
+      font-size: 0.95rem;
+      color: var(--dim);
+      max-width: 620px;
+      line-height: 1.7;
+    }
 
     /* ── CARDS ── */
-    .card-grid {
-      display: grid;
-      gap: 1.25rem;
-      margin-top: 1.5rem;
-    }
-
-    .card-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
     .card {
+      display: block;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 1.5rem;
-      transition: all 0.25s;
       text-decoration: none;
-      color: var(--text);
-      display: block;
+      transition: all 0.2s;
+      margin-bottom: 1rem;
     }
 
     .card:hover {
       border-color: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    }
-
-    .card.trust-card:hover {
-      border-color: var(--trust);
-      box-shadow: 0 8px 24px rgba(110, 200, 160, 0.15);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
     .card-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.75rem;
       margin-bottom: 0.75rem;
     }
 
-    .card-icon {
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
+    .card-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
 
     .card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
     }
 
     .card-subtitle {
       font-size: 0.8rem;
-      color: var(--accent2);
-      margin-top: 0.15rem;
+      color: var(--dim);
+      margin-top: 0.1rem;
     }
 
-    .card-subtitle.trust { color: var(--trust); }
-
     .card-desc {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--dim);
       line-height: 1.6;
     }
@@ -229,235 +266,78 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      margin-top: 1rem;
+      margin-top: 0.75rem;
     }
 
     .tag {
       font-size: 0.7rem;
       padding: 0.2rem 0.6rem;
       border-radius: 12px;
-      background: rgba(232, 115, 90, 0.1);
-      color: var(--accent);
-      border: 1px solid rgba(232, 115, 90, 0.2);
+      background: var(--surface2);
+      color: var(--dim);
+      border: 1px solid transparent;
     }
 
-    .tag.gold {
-      background: rgba(255, 209, 102, 0.1);
-      color: var(--accent3);
-      border-color: rgba(255, 209, 102, 0.2);
+    .tag.green { color: var(--trust); border-color: rgba(110, 200, 160, 0.2); }
+    .tag.orange { color: var(--accent); border-color: rgba(232, 115, 90, 0.2); }
+    .tag.gold { color: var(--accent3); border-color: rgba(255, 209, 102, 0.2); }
+
+    .card-grid {
+      display: grid;
+      gap: 1rem;
     }
 
-    .tag.orange {
-      background: rgba(244, 162, 97, 0.1);
-      color: var(--accent2);
-      border-color: rgba(244, 162, 97, 0.2);
+    .card-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
     }
 
-    .tag.green {
-      background: rgba(110, 200, 160, 0.1);
-      color: var(--trust);
-      border-color: rgba(110, 200, 160, 0.2);
-    }
-
-    /* ── DOC LINK ── */
-    .doc-link {
-      display: flex;
-      align-items: center;
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 0.75rem;
-      padding: 0.75rem 1rem;
+    }
+
+    .card-compact {
+      display: block;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
+      padding: 1rem;
       text-decoration: none;
-      color: var(--text);
       transition: all 0.2s;
     }
 
-    .doc-link:hover {
-      border-color: var(--accent);
-      background: var(--surface2);
-      transform: translateX(4px);
+    .card-compact:hover {
+      border-color: var(--accent3);
+      transform: translateY(-1px);
     }
 
-    .doc-link .doc-icon {
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .doc-link .doc-title {
+    .card-compact .cc-title {
       font-size: 0.9rem;
       font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
     }
 
-    .doc-link .doc-desc {
+    .card-compact .cc-desc {
       font-size: 0.75rem;
       color: var(--dim);
-      margin-top: 0.1rem;
+      line-height: 1.5;
     }
 
-    .doc-list {
-      display: grid;
-      gap: 0.6rem;
-    }
-
-    .doc-group {
-      margin-top: 2rem;
-    }
-
-    .doc-group-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent2);
-      margin-bottom: 0.75rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* ── FEATURED BOOK ── */
-    .featured-book {
-      background: linear-gradient(135deg, rgba(110, 200, 160, 0.08), rgba(110, 200, 160, 0.02));
-      border: 1px solid rgba(110, 200, 160, 0.25);
-      border-radius: 12px;
-      padding: 2rem;
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      margin-top: 1.5rem;
-    }
-
-    .featured-book:hover {
-      border-color: var(--trust);
-      box-shadow: 0 8px 32px rgba(110, 200, 160, 0.12);
-    }
-
-    .featured-book-cover {
-      flex-shrink: 0;
-      width: 160px;
-      height: 220px;
-      background: linear-gradient(135deg, #1a3a2e, #0d1f18);
-      border: 2px solid var(--trust);
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.25rem;
-      text-align: center;
-      box-shadow: 4px 4px 24px rgba(0,0,0,0.5);
-    }
-
-    .featured-book-cover .number {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--trust);
-      line-height: 1;
-    }
-
-    .featured-book-cover .title {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--trust);
-      margin-top: 0.4rem;
-      line-height: 1.2;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .featured-book-cover .author {
-      font-size: 0.65rem;
-      color: rgba(110, 200, 160, 0.7);
-      margin-top: 0.75rem;
-    }
-
-    .featured-book-info h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .featured-book-info h3 span { color: var(--trust); }
-
-    .featured-book-info p {
-      font-size: 0.9rem;
-      color: var(--dim);
-      line-height: 1.6;
-    }
-
-    .featured-book-links {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 1.25rem;
-      flex-wrap: wrap;
-    }
-
-    .btn {
+    .card-compact .cc-status {
       display: inline-block;
-      padding: 0.5rem 1.25rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .btn-trust {
-      background: var(--trust);
-      color: #0c0c10;
-    }
-
-    .btn-trust:hover {
-      background: #8dd8b8;
-      transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--dim);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--trust);
-      color: var(--trust);
-    }
-
-    .btn-accent {
-      background: var(--accent);
-      color: white;
-    }
-
-    .btn-accent:hover {
-      background: var(--accent2);
-      transform: translateY(-1px);
-    }
-
-    /* ── QUOTE BLOCK ── */
-    .quote-block {
-      border-left: 3px solid var(--accent);
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
-      background: var(--surface);
-      border-radius: 0 8px 8px 0;
-    }
-
-    .quote-block.trust-quote {
-      border-left-color: var(--trust);
-    }
-
-    .quote-block p {
-      font-size: 1rem;
-      font-style: italic;
-      color: var(--text);
-    }
-
-    .quote-block cite {
-      display: block;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
       margin-top: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--dim);
-      font-style: normal;
     }
+
+    .cc-status.active { color: var(--trust); background: rgba(110, 200, 160, 0.1); border: 1px solid rgba(110, 200, 160, 0.2); }
+    .cc-status.building { color: var(--accent2); background: rgba(244, 162, 97, 0.1); border: 1px solid rgba(244, 162, 97, 0.2); }
+    .cc-status.concept { color: var(--dim); background: var(--surface2); border: 1px solid var(--border); }
 
     /* ── READING PATH ── */
     .reading-path {
@@ -481,15 +361,13 @@
       padding: 0.5rem 0;
     }
 
-    .path-step + .path-step {
-      border-top: 1px solid rgba(255,255,255,0.04);
-    }
+    .path-step + .path-step { border-top: 1px solid rgba(255,255,255,0.04); }
 
     .step-num {
       font-size: 0.75rem;
       font-weight: 700;
-      color: var(--accent);
-      background: rgba(232, 115, 90, 0.12);
+      color: var(--trust);
+      background: rgba(110, 200, 160, 0.12);
       width: 24px;
       height: 24px;
       border-radius: 50%;
@@ -507,7 +385,7 @@
       font-size: 0.9rem;
     }
 
-    .step-content a:hover { color: var(--accent); }
+    .step-content a:hover { color: var(--trust); }
 
     .step-content .step-desc {
       font-size: 0.78rem;
@@ -515,7 +393,145 @@
       margin-top: 0.15rem;
     }
 
-    /* ── BOOK SECTION ── */
+    /* ── DOC GROUPS ── */
+    .doc-group {
+      margin-top: 1.5rem;
+    }
+
+    .doc-group-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .doc-list { display: grid; gap: 0.5rem; }
+
+    .doc-link {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .doc-link:hover {
+      border-color: var(--trust);
+      background: rgba(110, 200, 160, 0.03);
+    }
+
+    .doc-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.15rem; }
+
+    .doc-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .doc-desc {
+      font-size: 0.75rem;
+      color: var(--dim);
+      margin-top: 0.1rem;
+    }
+
+    /* ── QUOTE BLOCK ── */
+    .quote-block {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      background: var(--surface);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .quote-block.trust-quote { border-left-color: var(--trust); }
+
+    .quote-block p {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--text);
+    }
+
+    .quote-block cite {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--dim);
+      font-style: normal;
+    }
+
+    /* ── FEATURED BOOK ── */
+    .featured-book {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid rgba(110, 200, 160, 0.15);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .featured-book-cover {
+      flex-shrink: 0;
+      width: 140px;
+      height: 200px;
+      background: linear-gradient(135deg, var(--trust), #4aa87c);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 4px 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .featured-book-cover .number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .featured-book-cover .title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-top: 0.25rem;
+    }
+
+    .featured-book-cover .author {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 0.4rem;
+    }
+
+    .featured-book-info h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .featured-book-info h3 span { color: var(--trust); }
+
+    .featured-book-info p {
+      font-size: 0.9rem;
+      color: var(--dim);
+      line-height: 1.6;
+    }
+
+    .featured-book-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    /* ── BOOK CARD (smaller) ── */
     .book-card {
       display: flex;
       gap: 2rem;
@@ -524,8 +540,8 @@
 
     .book-cover {
       flex-shrink: 0;
-      width: 140px;
-      height: 200px;
+      width: 120px;
+      height: 170px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       border-radius: 6px;
       display: flex;
@@ -538,26 +554,26 @@
     }
 
     .book-cover .title {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: white;
       line-height: 1.2;
     }
 
     .book-cover .author {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: rgba(255,255,255,0.8);
       margin-top: 0.5rem;
     }
 
     .book-info h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
     }
 
     .book-info p {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--dim);
     }
 
@@ -592,19 +608,42 @@
       align-items: flex-start;
     }
 
-    .principle-icon {
-      font-size: 1.3rem;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
+    .principle-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+    .principle-text { font-size: 0.95rem; }
+    .principle-text strong { color: var(--accent2); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
     }
 
-    .principle-text {
-      font-size: 0.95rem;
+    .btn-trust { background: var(--trust); color: #0c0c10; }
+    .btn-trust:hover { background: #8dd8b8; transform: translateY(-1px); }
+
+    .btn-outline { border: 1px solid var(--border); color: var(--dim); }
+    .btn-outline:hover { border-color: var(--trust); color: var(--trust); }
+
+    .btn-accent { background: var(--accent); color: white; }
+    .btn-accent:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* ── LAYER DIVIDER ── */
+    .layer-divider {
+      height: 3px;
+      border: none;
+      margin: 0;
+      border-radius: 2px;
     }
 
-    .principle-text strong {
-      color: var(--accent2);
-    }
+    .layer-divider.vision { background: linear-gradient(90deg, var(--trust), transparent); }
+    .layer-divider.platform { background: linear-gradient(90deg, var(--accent), transparent); }
+    .layer-divider.dreams { background: linear-gradient(90deg, var(--accent3), transparent); }
 
     /* ── FOOTER ── */
     footer {
@@ -614,11 +653,7 @@
       font-size: 0.85rem;
     }
 
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
+    footer a { color: var(--accent); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
     .footer-links {
@@ -631,13 +666,14 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
-      .hero { padding: 4rem 0 3rem; }
+      .hero { padding: 4rem 0 2.5rem; }
       .hero-name { font-size: 2.2rem; }
-      .book-card { flex-direction: column; align-items: center; text-align: center; }
-      .book-cover { width: 120px; height: 170px; }
+      .layer-nav { grid-template-columns: 1fr; }
+      .card-grid-2 { grid-template-columns: 1fr; }
+      .card-grid-3 { grid-template-columns: 1fr; }
       .featured-book { flex-direction: column; align-items: center; text-align: center; }
       .featured-book-cover { width: 130px; height: 180px; }
-      .card-grid-2 { grid-template-columns: 1fr; }
+      .book-card { flex-direction: column; align-items: center; text-align: center; }
     }
   </style>
 </head>
@@ -645,51 +681,69 @@
 
 <div class="container">
 
-  <!-- ═══ HERO ═══ -->
+  <!-- ═══════════════════════════════════════════ -->
+  <!--                    HERO                     -->
+  <!-- ═══════════════════════════════════════════ -->
   <div class="hero">
     <h1 class="hero-name">Paul <span class="accent">Diehl</span></h1>
     <p class="hero-tagline">Builder. Writer. Milliprime.</p>
     <p class="hero-statement">
       I build systems that serve people — not the other way around. I believe we're entering an age where
       <em>one person with the right tools and the right values</em> can do what used to require a corporation.
-      I believe trust is the economy, giving is the strategy, and the most radical act right now is
+      Trust is the economy. Giving is the strategy. The most radical act right now is
       handing powerful tools to idealists.
     </p>
-    <p class="hero-statement" style="margin-top: 1rem;">
-      I'm turning 40 this year, and my career has finally begun.
+    <p class="hero-statement" style="margin-top: 1rem; color: var(--dim); font-size: 0.95rem;">
+      Everything I build falls into three layers: the <strong style="color: var(--trust);">vision</strong> that drives it,
+      the <strong style="color: var(--accent);">platform</strong> that powers it,
+      and the <strong style="color: var(--accent3);">dreams</strong> it makes real.
     </p>
 
-    <nav class="nav-pills">
-      <a class="nav-pill featured" href="#web4">Web 4.0</a>
-      <a class="nav-pill" href="#laws-of-trust">48 Laws of Trust</a>
-      <a class="nav-pill" href="#work">Projects</a>
-      <a class="nav-pill" href="#philosophy">Philosophy</a>
-      <a class="nav-pill" href="#book">Books</a>
-      <a class="nav-pill" href="#manvshealth">ManVsHealth</a>
-      <a class="nav-pill" href="https://github.com/pauldiehl" target="_blank">GitHub ↗</a>
+    <!-- Three-layer navigation -->
+    <nav class="layer-nav">
+      <a class="layer-nav-item vision" href="#vision">
+        <div class="layer-num">Layer 1</div>
+        <div class="layer-title">Vision</div>
+        <div class="layer-subtitle">Web 4.0 &middot; Trust Economy &middot; The Why</div>
+      </a>
+      <a class="layer-nav-item platform" href="#platform">
+        <div class="layer-num">Layer 2</div>
+        <div class="layer-title">Platform</div>
+        <div class="layer-subtitle">DIAB &middot; Forkless &middot; The How</div>
+      </a>
+      <a class="layer-nav-item dreams" href="#dreams">
+        <div class="layer-num">Layer 3</div>
+        <div class="layer-title">Dreams</div>
+        <div class="layer-subtitle">MVH &middot; Plain Fun &middot; The What</div>
+      </a>
     </nav>
   </div>
 
-  <!-- ═══ WEB 4.0 VISION ═══ -->
-  <section id="web4">
-    <div class="section-label trust">Web 4.0 — The Trust Economy</div>
 
-    <h2>What if apps didn't exist until you needed them?</h2>
-    <p style="color: var(--dim); max-width: 620px;">
-      Web 4.0 is a post-platform architecture where providers publish governance protocols and data,
+  <!-- ═══════════════════════════════════════════ -->
+  <!--           LAYER 1: VISION                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <hr class="layer-divider vision">
+
+  <section id="vision" class="layer-header">
+    <span class="layer-badge vision-badge">Layer 1 &mdash; Vision</span>
+    <h2 style="color: var(--trust);">The Trust Economy</h2>
+    <p class="layer-desc">
+      Web 4.0 is a post-platform architecture where providers publish governance protocols,
       consumer agents negotiate on your behalf, and experiences are generated in real time by AI.
-      No lock-in. No dark patterns. No middlemen extracting 30-50% of every transaction. Trust replaces control.
-      Giving replaces hoarding.
+      No lock-in. No dark patterns. No middlemen. Trust replaces control. Giving replaces hoarding.
     </p>
+  </section>
 
-    <div class="quote-block trust-quote" style="margin-top: 1.5rem;">
+  <section style="padding-top: 1rem;">
+    <div class="quote-block trust-quote">
       <p>"We give away everything. We are RACING other Milliprimes. We CREATE our competitors.
         The trust economy doesn't work by protecting IP — it works by proving you were here first,
         you gave the most, and everyone's success traces back through your generosity."</p>
       <cite>— The Coalition Thesis</cite>
     </div>
 
-    <!-- Reading Path for Joey / newcomers -->
+    <!-- Reading Path -->
     <div class="reading-path">
       <h3>Start Here — The Reading Path</h3>
       <div class="path-step">
@@ -703,21 +757,21 @@
         <div class="step-num">2</div>
         <div class="step-content">
           <a href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/LAWS-OF-TRUST.md" target="_blank">The 48 Laws of Trust</a>
-          <div class="step-desc">The philosophical foundation. Every Law of Power reversed.</div>
+          <div class="step-desc">Every Law of Power reversed. Trust compounds. Power depletes.</div>
         </div>
       </div>
       <div class="path-step">
         <div class="step-num">3</div>
         <div class="step-content">
           <a href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/COALITION.md" target="_blank">The Coalition</a>
-          <div class="step-desc">How radical generosity becomes the economic moat. Trust equity. Structureless momentum.</div>
+          <div class="step-desc">Radical generosity as economic moat. Trust equity. Structureless momentum.</div>
         </div>
       </div>
       <div class="path-step">
         <div class="step-num">4</div>
         <div class="step-content">
           <a href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/SELF-SOVEREIGN-TRUST.md" target="_blank">Self-Sovereign Trust</a>
-          <div class="step-desc">"Self-governance is my protocol." Why trust is personal, not a ledger.</div>
+          <div class="step-desc">"Self-governance is my protocol." Trust is personal, not a ledger.</div>
         </div>
       </div>
       <div class="path-step">
@@ -731,7 +785,7 @@
         <div class="step-num">6</div>
         <div class="step-content">
           <a href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/PRODUCT-PORTFOLIO.md" target="_blank">Product Portfolio</a>
-          <div class="step-desc">What we're building. Pay the bills AND seed Web 4.0 — concurrently.</div>
+          <div class="step-desc">Pay the bills AND seed Web 4.0 — concurrently.</div>
         </div>
       </div>
     </div>
@@ -744,35 +798,28 @@
           <span class="doc-icon">📈</span>
           <div>
             <div class="doc-title">Agentic Progression</div>
-            <div class="doc-desc">Engineering → Rendering → Execution. The three stages happening concurrently.</div>
-          </div>
-        </a>
-        <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/PROTOCOL-EXPLORER.md" target="_blank">
-          <span class="doc-icon">🔘</span>
-          <div>
-            <div class="doc-title">The Protocol Explorer</div>
-            <div class="doc-desc">Press the button. Deploy protocols. Join the economy. The onboarding toolkit for Web 4.0.</div>
+            <div class="doc-desc">Engineering → Rendering → Execution. Three stages, happening concurrently.</div>
           </div>
         </a>
         <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/AGENTIC-RENDERING.md" target="_blank">
           <span class="doc-icon">🔮</span>
           <div>
             <div class="doc-title">Agentic Rendering</div>
-            <div class="doc-desc">Apps generated by AI in real time. The end of the frontend as we know it.</div>
+            <div class="doc-desc">Apps generated by AI in real time. The end of the frontend.</div>
           </div>
         </a>
         <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/AGENTIC-EXECUTION.md" target="_blank">
           <span class="doc-icon">🚀</span>
           <div>
             <div class="doc-title">Agentic Execution</div>
-            <div class="doc-desc">The endgame. Agents negotiate, transact, and deliver — pure protocol, no UI.</div>
+            <div class="doc-desc">The endgame. Agents negotiate, transact, and deliver — pure protocol.</div>
           </div>
         </a>
         <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/WEB4-ECONOMICS.md" target="_blank">
           <span class="doc-icon">💰</span>
           <div>
             <div class="doc-title">Web 4.0 Economics</div>
-            <div class="doc-desc">x402 micropayments, dual-rail payments, the cost structure of the trust economy.</div>
+            <div class="doc-desc">x402 micropayments, dual-rail payments, the cost structure.</div>
           </div>
         </a>
         <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/FIRST-APP-BLUEPRINT.md" target="_blank">
@@ -785,17 +832,6 @@
       </div>
     </div>
 
-    <!-- Agentic Engineering -->
-    <div class="doc-group" style="background: rgba(110, 200, 160, 0.04); border: 1px solid rgba(110, 200, 160, 0.12); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-      <div class="doc-group-title" style="color: var(--trust);">Agentic Engineering — Where We Are Now</div>
-      <p style="color: var(--dim); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
-        Most of us are here right now. Agents building infrastructure on our behalf — writing code, deploying services, configuring protocols. The difference between agentic engineering and agentic execution is the difference between "build me a house" and "turn on the lights." Engineering is slow, creative, and requires human collaboration. Execution is instant, repeatable, and fully autonomous. The Protocol Explorer bridges both: Person A with existing infrastructure gets agentic execution (5 minutes to deploy). Person C with nothing gets agentic engineering (the agent builds their entire presence from scratch).
-      </p>
-      <p style="color: var(--dim); font-size: 0.9rem; line-height: 1.6;">
-        The progression is not sequential — engineering, rendering, and execution are happening concurrently. Your agent engineers new capabilities while rendering existing ones while executing established protocols. Every Milliprime is living in all three stages simultaneously.
-      </p>
-    </div>
-
     <!-- Movement Docs -->
     <div class="doc-group">
       <div class="doc-group-title">The Movement</div>
@@ -804,7 +840,7 @@
           <span class="doc-icon">🌊</span>
           <div>
             <div class="doc-title">Tsunami Roadmap</div>
-            <div class="doc-desc">The phased growth strategy. Drip → Stream → River → Tsunami.</div>
+            <div class="doc-desc">Drip → Stream → River → Tsunami. Phased growth.</div>
           </div>
         </a>
         <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/AGENT-EXCHANGE.md" target="_blank">
@@ -818,35 +854,7 @@
           <span class="doc-icon">📖</span>
           <div>
             <div class="doc-title">Saunter AI</div>
-            <div class="doc-desc">Agentic reverse syndication of systems. The "Book of Life" for any codebase.</div>
-          </div>
-        </a>
-        <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/WEB4-WATCHLIST.md" target="_blank">
-          <span class="doc-icon">👁️</span>
-          <div>
-            <div class="doc-title">Web 4.0 Watchlist</div>
-            <div class="doc-desc">Who else is building toward this future? Friends, allies, and ones to watch.</div>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Deep Dives -->
-    <div class="doc-group">
-      <div class="doc-group-title">Deep Dives</div>
-      <div class="doc-list">
-        <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/AGENT-COMMUNICATION.md" target="_blank">
-          <span class="doc-icon">💬</span>
-          <div>
-            <div class="doc-title">Agent Communication</div>
-            <div class="doc-desc">Five patterns for how agents find and talk to each other.</div>
-          </div>
-        </a>
-        <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/AEO-STRATEGY.md" target="_blank">
-          <span class="doc-icon">🔍</span>
-          <div>
-            <div class="doc-title">AEO Strategy</div>
-            <div class="doc-desc">Agent Engine Optimization. SEO is dead — this is how agents find you.</div>
+            <div class="doc-desc">Agentic reverse syndication. The "Book of Life" for any codebase.</div>
           </div>
         </a>
         <a class="doc-link" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/THREAT-LANDSCAPE.md" target="_blank">
@@ -854,6 +862,187 @@
           <div>
             <div class="doc-title">Threat Landscape</div>
             <div class="doc-desc">The AI arms race, control vectors, and why Web 4.0 IS structural resistance.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Featured: 48 Laws of Trust -->
+    <div class="featured-book" style="margin-top: 2rem;">
+      <div class="featured-book-cover">
+        <div class="number">48</div>
+        <div class="title">Laws of Trust</div>
+        <div class="author">Paul Diehl</div>
+      </div>
+      <div class="featured-book-info">
+        <h3>The 48 <span>Laws of Trust</span></h3>
+        <p>
+          A complete reversal of Robert Greene's 48 Laws of Power. Every law that teaches manipulation
+          is inverted into its trust-based counterpart — transparency, generosity, and authentic connection.
+          This isn't optimism. It's economics. Trust compounds. Power depletes.
+        </p>
+        <div class="featured-book-links">
+          <a class="btn btn-trust" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/LAWS-OF-TRUST.pdf" target="_blank">Download PDF</a>
+          <a class="btn btn-outline" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/LAWS-OF-TRUST.md" target="_blank">Read on GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top: 1.5rem; text-align: center;">
+      <a class="btn btn-outline" href="https://github.com/pauldiehl/sovereign-streams/tree/main/web4" target="_blank">
+        Browse sovereign-streams on GitHub ↗
+      </a>
+    </p>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--           LAYER 2: PLATFORM                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <hr class="layer-divider platform">
+
+  <section id="platform" class="layer-header">
+    <span class="layer-badge platform-badge">Layer 2 &mdash; Platform</span>
+    <h2 style="color: var(--accent);">The Sovereign Stack</h2>
+    <p class="layer-desc">
+      The infrastructure that makes the vision real. A sovereign cloud node (Dream in a Box),
+      a conversational commerce engine (Forkless), community layer (Greenspaces), and the open
+      protocols that connect them. No middlemen. No vendor lock-in. Your node, your rules.
+    </p>
+  </section>
+
+  <section style="padding-top: 1rem;">
+    <div class="card-grid">
+
+      <!-- Dream in a Box -->
+      <a class="card" href="https://github.com/pauldiehl/dream-in-a-box" target="_blank" style="border-color: rgba(232, 115, 90, 0.3);">
+        <div class="card-header">
+          <span class="card-icon">📦</span>
+          <div>
+            <div class="card-title">Dream in a Box</div>
+            <div class="card-subtitle">The sovereign cloud node for Web 4.0</div>
+          </div>
+        </div>
+        <p class="card-desc">
+          A four-layer architecture — Node Agent, Protocols, Services, Dreams — that lets anyone
+          run a sovereign business on their own infrastructure. Protocol-first development.
+          Domain-Driven Protocols. Journey state machines. Embedded scheduler. Local vector intelligence.
+          Everything a dream needs, nothing it doesn't.
+        </p>
+        <div class="card-tags">
+          <span class="tag orange">Core Architecture</span>
+          <span class="tag green">Sovereign</span>
+          <span class="tag">Node.js + SQLite</span>
+          <span class="tag gold">Active Development</span>
+        </div>
+      </a>
+
+      <!-- Forkless -->
+      <a class="card" href="https://github.com/pauldiehl/forkless" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🍽️</span>
+          <div>
+            <div class="card-title">Forkless</div>
+            <div class="card-subtitle">"There is no fork." — Conversational commerce engine</div>
+          </div>
+        </div>
+        <p class="card-desc">
+          The Agent Layer + Transaction Layer that powers every dream. Customers talk to an AI agent;
+          the agent serves readonly artifacts driven by JSON configs. No forms. No dashboards. No interactive
+          UX to break. The conversation IS the interface. Every dream on a DIAB node gets Forkless automatically.
+        </p>
+        <div class="card-tags">
+          <span class="tag orange">Layer 2 Service</span>
+          <span class="tag">Agent + Transaction Layer</span>
+          <span class="tag green">Readonly Artifacts</span>
+        </div>
+      </a>
+
+      <!-- Agent Intake Protocol -->
+      <a class="card" href="https://agentintake.io" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🔌</span>
+          <div>
+            <div class="card-title">Agent Intake Protocol</div>
+            <div class="card-subtitle">agentintake.io — Open protocol. Usable today.</div>
+          </div>
+        </div>
+        <p class="card-desc">
+          An open protocol for agent-mediated service intake. AI agents discover business endpoints,
+          submit intake data, receive structured offers, and optionally bind to initiate service
+          relationships. The missing layer for service commerce.
+        </p>
+        <div class="card-tags">
+          <span class="tag green">Built</span>
+          <span class="tag gold">MIT Licensed</span>
+          <span class="tag orange">v0.1.0 Spec</span>
+          <span class="tag">npm Package</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Additional platform projects -->
+    <div class="card-grid-2" style="margin-top: 1rem;">
+      <a class="card" href="https://github.com/pauldiehl/protocol-explorer" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🔘</span>
+          <div>
+            <div class="card-title">Protocol Explorer</div>
+            <div class="card-subtitle">Press the button. Become Web 4.0.</div>
+          </div>
+        </div>
+        <p class="card-desc">
+          The onboarding toolkit. Deploy protocols, publish governance, join the trust economy — one button at a time.
+        </p>
+        <div class="card-tags">
+          <span class="tag green">Onboarding</span>
+          <span class="tag">.well-known</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/go-go-pump/greenspaces" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🌿</span>
+          <div>
+            <div class="card-title">Greenspaces</div>
+            <div class="card-subtitle">Community layer for every dream</div>
+          </div>
+        </div>
+        <p class="card-desc">
+          Shared spaces, collaboration, environmental context. The community service that sits alongside
+          Forkless in the DIAB stack.
+        </p>
+        <div class="card-tags">
+          <span class="tag orange">Layer 2 Service</span>
+          <span class="tag">Early Concept</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Meta-factory -->
+    <div class="doc-group" style="margin-top: 1.5rem;">
+      <div class="doc-group-title">The Meta-Factory</div>
+      <div class="doc-list">
+        <a class="doc-link" href="https://github.com/go-go-pump/1kh" target="_blank" style="border-color: rgba(232, 115, 90, 0.15);">
+          <span class="doc-icon">🤲</span>
+          <div>
+            <div class="doc-title">1KH — Thousand Hands</div>
+            <div class="doc-desc">AI-orchestrated development methodology. Brain dumps become tested, deployed systems.</div>
+          </div>
+        </a>
+        <a class="doc-link" href="https://github.com/go-go-pump/god-mode" target="_blank" style="border-color: rgba(232, 115, 90, 0.15);">
+          <span class="doc-icon">⚡</span>
+          <div>
+            <div class="doc-title">God Mode</div>
+            <div class="doc-desc">The convergence pattern: automation becomes execution, technology becomes business.</div>
+          </div>
+        </a>
+        <a class="doc-link" href="https://github.com/go-go-pump/milliprime-coop" target="_blank" style="border-color: rgba(232, 115, 90, 0.15);">
+          <span class="doc-icon">🏛️</span>
+          <div>
+            <div class="doc-title">Milliprime Co-Op</div>
+            <div class="doc-desc">The thesis: one founder with the right systems can build what used to require a corporation.</div>
           </div>
         </a>
       </div>
@@ -870,122 +1059,122 @@
           </div>
         </div>
         <p class="card-desc">
-          See the architecture in action. An AI agent reads a governance protocol,
-          negotiates content, and generates an entire news experience — live, in your browser.
-          No server. No deployment. Just rules, data, and intelligence.
+          An AI agent reads a governance protocol, negotiates content, and generates an entire
+          experience — live, in your browser. No server. No deployment. Rules, data, and intelligence.
         </p>
         <div class="card-tags">
-          <span class="tag">Live Demo</span>
+          <span class="tag orange">Live Demo</span>
           <span class="tag gold">Service Workers</span>
-          <span class="tag orange">Agentic Rendering</span>
+          <span class="tag green">Agentic Rendering</span>
         </div>
       </a>
     </div>
+  </section>
 
-    <!-- Full Repo Link -->
-    <p style="margin-top: 1.5rem; text-align: center;">
-      <a class="btn btn-outline" href="https://github.com/pauldiehl/sovereign-streams/tree/main/web4" target="_blank">
-        Browse the full repository on GitHub ↗
-      </a>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--           LAYER 3: DREAMS                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <hr class="layer-divider dreams">
+
+  <section id="dreams" class="layer-header">
+    <span class="layer-badge dreams-badge">Layer 3 &mdash; Dreams</span>
+    <h2 style="color: var(--accent3);">The Products</h2>
+    <p class="layer-desc">
+      Dreams are the actual products, experiences, and businesses that give a DIAB node its purpose.
+      Each dream is self-contained — its own protocols, content, and rules — running on the sovereign
+      platform. These are the things real people use.
     </p>
   </section>
 
-  <!-- ═══ 48 LAWS OF TRUST ═══ -->
-  <section id="laws-of-trust">
-    <div class="section-label trust">Featured Work</div>
+  <section style="padding-top: 1rem;">
 
-    <div class="featured-book">
-      <div class="featured-book-cover">
-        <div class="number">48</div>
-        <div class="title">Laws of Trust</div>
-        <div class="author">Paul Diehl</div>
+    <!-- Man vs Health — primary dream -->
+    <a class="card" href="https://manvshealth.com" target="_blank" style="border-color: rgba(255, 209, 102, 0.3);">
+      <div class="card-header">
+        <span class="card-icon">💪</span>
+        <div>
+          <div class="card-title">Man vs Health</div>
+          <div class="card-subtitle">manvshealth.com — AI-powered health for men over 40</div>
+        </div>
       </div>
-      <div class="featured-book-info">
-        <h3>The 48 <span>Laws of Trust</span></h3>
-        <p>
-          A complete reversal of Robert Greene's 48 Laws of Power. Every law that teaches manipulation,
-          concealment, and control is inverted into its trust-based counterpart — transparency,
-          generosity, and authentic connection. This isn't optimism. It's economics.
-          Trust compounds. Power depletes.
-        </p>
-        <p style="margin-top: 0.5rem;">
-          Includes historical examples, Web 4.0 applications, and the convergence theory:
-          how the power-dominant age is contracting into a trust-dominant one.
-        </p>
-        <div class="featured-book-links">
-          <a class="btn btn-trust" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/LAWS-OF-TRUST.pdf" target="_blank">Download PDF</a>
-          <a class="btn btn-outline" href="https://github.com/pauldiehl/sovereign-streams/blob/main/web4/LAWS-OF-TRUST.md" target="_blank">Read on GitHub</a>
+      <p class="card-desc">
+        Personalized nutrition plans. 15-minute fitness workouts. Health tracking through simple
+        text messages — no app downloads, no passwords. The Man Plan meets you where you are.
+        Five journey types: JumpStart consults, PHO walkthroughs, Mean Clean Lean ebook,
+        nutrition plans, and fitness plans. The first dream, and the proving ground for the entire stack.
+      </p>
+      <div class="card-tags">
+        <span class="tag gold">Primary Dream</span>
+        <span class="tag green">Live</span>
+        <span class="tag orange">Forkless-Powered</span>
+        <span class="tag">SMS-First</span>
+      </div>
+    </a>
+
+    <!-- Dream portfolio grid -->
+    <div class="card-grid-3" style="margin-top: 1rem;">
+      <a class="card-compact" href="https://tortymartialarts.com" target="_blank" style="text-decoration: none;">
+        <div class="cc-title">🥋 Torty MA</div>
+        <div class="cc-desc">Martial arts training, progression, and community. Live at TortyMartialArts.com.</div>
+        <span class="cc-status active">Live</span>
+      </a>
+      <div class="card-compact">
+        <div class="cc-title">🎮 Plain Fun</div>
+        <div class="cc-desc">Generative AI gaming for kids. Kid admins create lands, define rules. Adult verification. P2P payments. The architecture stress test.</div>
+        <span class="cc-status concept">Concept</span>
+      </div>
+      <div class="card-compact">
+        <div class="cc-title">🎵 Yomo</div>
+        <div class="cc-desc">Music and creative expression platform. Coming to life.</div>
+        <span class="cc-status building">Building</span>
+      </div>
+      <div class="card-compact">
+        <div class="cc-title">✨ Good Vibes</div>
+        <div class="cc-desc">Positive neurology social streaming. Rewire your feed, rewire your brain.</div>
+        <span class="cc-status concept">Concept</span>
+      </div>
+      <div class="card-compact">
+        <div class="cc-title">🏅 Coach Kid</div>
+        <div class="cc-desc">Youth coaching and progress tracking. Service-based dream with Forkless + Greenspaces.</div>
+        <span class="cc-status concept">Concept</span>
+      </div>
+      <div class="card-compact">
+        <div class="cc-title">🏠 Freeltor</div>
+        <div class="cc-desc">P2P home sales. Cut the middlemen. Direct buyer-to-seller transactions powered by agents.</div>
+        <span class="cc-status concept">Concept</span>
+      </div>
+      <div class="card-compact">
+        <div class="cc-title">🏄 Driftboard</div>
+        <div class="cc-desc">Ride the current. A dream waiting for its wave.</div>
+        <span class="cc-status concept">Concept</span>
+      </div>
+    </div>
+
+    <!-- Books -->
+    <div style="margin-top: 2.5rem;">
+      <div class="section-label gold">Books</div>
+      <div class="book-card">
+        <div class="book-cover">
+          <div class="title">Mean Clean Lean</div>
+          <div class="author">Paul Diehl</div>
+        </div>
+        <div class="book-info">
+          <h3>Mean Clean Lean</h3>
+          <p>The book that started it all. A no-BS guide to men's health — written from personal experience,
+            not corporate wellness talking points. Where ManVsHealth began.</p>
+          <a class="book-link" href="https://manvshealth.com/mean-clean-lean-ebook.html" target="_blank">Read It ↗</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ WORK / PROJECTS ═══ -->
-  <section id="work">
-    <div class="section-label">What I'm Building</div>
 
-    <div class="card-grid">
-
-      <a class="card" href="https://github.com/go-go-pump" target="_blank">
-        <div class="card-header">
-          <span class="card-icon">🤲</span>
-          <div>
-            <div class="card-title">Milliprime Co-op</div>
-            <div class="card-subtitle">Thousand Hands · God Mode · Greenspaces</div>
-          </div>
-        </div>
-        <p class="card-desc">
-          The meta-factory. <strong style="color: var(--accent2);">Thousand Hands</strong> is a methodology and CLI for
-          AI-orchestrated development — brain dumps become tested, deployed systems.
-          <strong style="color: var(--accent2);">God Mode</strong> is the convergence pattern: automation becomes execution,
-          technology becomes business, philosophy becomes engineering.
-        </p>
-        <p class="card-desc" style="margin-top: 0.5rem;">
-          The Milliprime thesis: one founder with the right systems can build, launch, and govern
-          what used to require a corporation. Not a movement — a phenomenon we're naming.
-        </p>
-        <div class="card-tags">
-          <span class="tag">Convergence Pattern</span>
-          <span class="tag gold">AI Orchestration</span>
-          <span class="tag orange">Journey-First Dev</span>
-          <span class="tag">1KH CLI</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://agentintake.io" target="_blank">
-        <div class="card-header">
-          <span class="card-icon">🔌</span>
-          <div>
-            <div class="card-title">Agent Intake Protocol</div>
-            <div class="card-subtitle">agentintake.io — Open protocol. Usable today.</div>
-          </div>
-        </div>
-        <p class="card-desc">
-          An open protocol for agent-mediated service intake. AI agents — acting on behalf of users —
-          discover business endpoints, submit intake data, receive structured offers, and optionally bind
-          to initiate service relationships. The missing layer for <em>service commerce</em>.
-        </p>
-        <div class="card-tags">
-          <span class="tag">Open Protocol</span>
-          <span class="tag gold">MIT Licensed</span>
-          <span class="tag orange">v0.1.0 Spec</span>
-          <span class="tag">npm Package</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ═══ PHILOSOPHY ═══ -->
+  <!-- ═══════════════════════════════════════════ -->
+  <!--               PHILOSOPHY                    -->
+  <!-- ═══════════════════════════════════════════ -->
   <section id="philosophy">
     <div class="section-label">What I Believe</div>
-
-    <div class="quote-block">
-      <p>"We are done building the old world. The future belongs to those who can build the meta-factory —
-        the platform, the protocols, the shared infrastructure that makes it possible to create, launch,
-        and iterate on dozens of systems cheaply and safely."</p>
-      <cite>— The Milliprime Manifesto</cite>
-    </div>
 
     <div class="principles">
       <div class="principle">
@@ -998,7 +1187,7 @@
       </div>
       <div class="principle">
         <span class="principle-icon">🏗️</span>
-        <p class="principle-text"><strong>Build vs. buy flips.</strong> If you can build version 1 in hours, the default becomes build. You avoid lock-in, keep velocity, and can commoditize it later at $1/month instead of paying $50/month forever.</p>
+        <p class="principle-text"><strong>Build vs. buy flips.</strong> If you can build version 1 in hours, the default becomes build. You avoid lock-in, keep velocity, and can commoditize it later instead of paying forever.</p>
       </div>
       <div class="principle">
         <span class="principle-icon">🤝</span>
@@ -1011,49 +1200,6 @@
     </div>
   </section>
 
-  <!-- ═══ BOOKS ═══ -->
-  <section id="book">
-    <div class="section-label">Books</div>
-
-    <div class="book-card">
-      <div class="book-cover">
-        <div class="title">Mean Clean Lean</div>
-        <div class="author">Paul Diehl</div>
-      </div>
-      <div class="book-info">
-        <h3>Mean Clean Lean</h3>
-        <p>The book that started it all. A no-BS guide to men's health — written from personal experience,
-          not corporate wellness talking points. This is where ManVsHealth began.</p>
-        <a class="book-link" href="https://manvshealth.com/mean-clean-lean-ebook.html" target="_blank">Read It ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ MANVSHEALTH ═══ -->
-  <section id="manvshealth">
-    <div class="section-label">The Business</div>
-
-    <a class="card" href="https://manvshealth.com" target="_blank" style="margin-top: 0;">
-      <div class="card-header">
-        <span class="card-icon">💪</span>
-        <div>
-          <div class="card-title">ManVsHealth.com</div>
-          <div class="card-subtitle">AI-powered health system for men over 40</div>
-        </div>
-      </div>
-      <p class="card-desc">
-        Personalized nutrition plans. 15-minute fitness workouts. Health tracking that actually helps.
-        All managed through simple text messages — no app downloads, no endless logins, no passwords to remember.
-        The Man Plan meets you where you are.
-      </p>
-      <div class="card-tags">
-        <span class="tag">AI Nutrition</span>
-        <span class="tag gold">SMS-First</span>
-        <span class="tag orange">Men's Health</span>
-      </div>
-    </a>
-  </section>
-
 </div>
 
 <!-- ═══ FOOTER ═══ -->
@@ -1061,11 +1207,13 @@
   <div class="container">
     <div class="footer-links">
       <a href="https://github.com/pauldiehl">GitHub</a>
-      <a href="https://github.com/pauldiehl/sovereign-streams/tree/main/web4">Web 4.0 Docs</a>
+      <a href="https://github.com/pauldiehl/sovereign-streams/tree/main/web4">Web 4.0</a>
+      <a href="https://github.com/pauldiehl/dream-in-a-box">DIAB</a>
+      <a href="https://github.com/pauldiehl/forkless">Forkless</a>
       <a href="https://manvshealth.com">ManVsHealth</a>
       <a href="https://agentintake.io">AgentIntake.io</a>
     </div>
-    <p>Paul Diehl · 2026</p>
+    <p>Paul Diehl · 2026 · Vision · Platform · Dreams</p>
   </div>
 </footer>
 
