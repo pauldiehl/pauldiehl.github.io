@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spectrum Docs — Evidence Mapped</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0f;
+    --surface: #141418;
+    --surface2: #1a1a20;
+    --border: #2a2a35;
+    --text: #e8e6e1;
+    --text-dim: #8a8890;
+    --text-muted: #5a5862;
+    --accent-green: #34d399;
+    --accent-green-bg: rgba(52, 211, 153, 0.08);
+    --accent-blue: #60a5fa;
+    --accent-blue-bg: rgba(96, 165, 250, 0.08);
+    --accent-amber: #fbbf24;
+    --accent-amber-bg: rgba(251, 191, 36, 0.08);
+    --accent-orange: #fb923c;
+    --accent-orange-bg: rgba(251, 146, 60, 0.08);
+    --accent-red: #f87171;
+    --accent-red-bg: rgba(248, 113, 113, 0.08);
+    --accent-purple: #c084fc;
+    --accent-purple-bg: rgba(192, 132, 252, 0.08);
+    --accent-pink: #f472b6;
+    --accent-pink-bg: rgba(244, 114, 182, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    margin-bottom: 72px;
+    padding-bottom: 52px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+  }
+
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.4rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--accent-green), var(--accent-blue), var(--accent-purple), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  header .tagline {
+    color: var(--text-dim);
+    font-size: 1rem;
+    max-width: 560px;
+    margin: 0 auto 28px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .concept-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .concept-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 4px 11px;
+    border-radius: 4px;
+    background: var(--surface2);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    border: 1px solid var(--border);
+  }
+
+  /* ── Section labels ── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Doc cards ── */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .doc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .doc-card:hover {
+    border-color: #3a3a48;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  .doc-card.live:hover {
+    border-color: rgba(52, 211, 153, 0.3);
+  }
+
+  .doc-card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .doc-card.live .doc-card-glow {
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-blue), var(--accent-purple), var(--accent-pink));
+  }
+
+  .doc-card.coming-soon .doc-card-glow {
+    background: var(--border);
+  }
+
+  .doc-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .doc-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  .doc-card.live .doc-status {
+    background: var(--accent-green-bg);
+    color: var(--accent-green);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+  }
+
+  .doc-card.coming-soon .doc-status {
+    background: var(--surface2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .doc-scope {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .doc-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .doc-card.live h2 {
+    color: var(--text);
+  }
+
+  .doc-card.coming-soon h2 {
+    color: var(--text-dim);
+  }
+
+  .doc-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .doc-tier-preview {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .tier-pip {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── What is this section ── */
+  .about-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-bottom: 56px;
+  }
+
+  .about-block h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  .about-block p {
+    font-size: 0.86rem;
+    color: var(--text-dim);
+    font-weight: 300;
+    line-height: 1.75;
+    margin-bottom: 10px;
+  }
+
+  .about-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-block .mechbox {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 18px;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border-radius: 6px;
+    line-height: 1.75;
+  }
+
+  .about-block .mechbox span {
+    color: var(--text-dim);
+  }
+
+  /* ── Footer ── */
+  .footer-note {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 300;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 640px) {
+    header h1 { font-size: 2.2rem; }
+    .container { padding: 32px 16px 60px; }
+    .about-block { padding: 24px 20px; }
+    .docs-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="header-eyebrow">A Reference Series</div>
+  <h1>Spectrum Docs</h1>
+  <p class="tagline">Visual, tiered breakdowns of topics mapped along a credibility gradient — from peer-reviewed and regulated, down to philosophical and fantastical. Honest about evidence. Respectful of the full landscape.</p>
+  <div class="concept-pills">
+    <span class="concept-pill">evidence-mapped</span>
+    <span class="concept-pill">tiered format</span>
+    <span class="concept-pill">mechanism boxes</span>
+    <span class="concept-pill">no frameworks · no build step</span>
+    <span class="concept-pill">macro + micro docs</span>
+  </div>
+</header>
+
+<!-- PUBLISHED -->
+<div class="section-label">Published</div>
+
+<div class="docs-grid">
+
+  <a href="frequency-spectrum-guide.html" class="doc-card live">
+    <div class="doc-card-glow"></div>
+    <div class="doc-card-top">
+      <span class="doc-status">Live</span>
+      <span class="doc-scope">macro · 7 tiers</span>
+    </div>
+    <h2>The Frequency Spectrum</h2>
+    <p>Resonance, vibration, and frequency-based wellness — from FDA-cleared medical devices to Tartaria bells and sacred geometry. The doc that started it all.</p>
+    <div class="doc-tier-preview">
+      <div class="tier-pip" style="background:var(--accent-green);box-shadow:0 0 6px rgba(52,211,153,0.4)"></div>
+      <div class="tier-pip" style="background:var(--accent-blue);box-shadow:0 0 6px rgba(96,165,250,0.4)"></div>
+      <div class="tier-pip" style="background:var(--accent-amber);box-shadow:0 0 6px rgba(251,191,36,0.4)"></div>
+      <div class="tier-pip" style="background:var(--accent-orange);box-shadow:0 0 6px rgba(251,146,60,0.4)"></div>
+      <div class="tier-pip" style="background:var(--accent-red);box-shadow:0 0 6px rgba(248,113,113,0.4)"></div>
+      <div class="tier-pip" style="background:var(--accent-purple);box-shadow:0 0 6px rgba(192,132,252,0.4)"></div>
+      <div class="tier-pip" style="background:var(--accent-pink);box-shadow:0 0 6px rgba(244,114,182,0.4)"></div>
+    </div>
+  </a>
+
+</div>
+
+<!-- COMING SOON -->
+<div class="section-label">On Deck</div>
+
+<div class="docs-grid">
+
+  <div class="doc-card coming-soon">
+    <div class="doc-card-glow"></div>
+    <div class="doc-card-top">
+      <span class="doc-status">Coming Soon</span>
+      <span class="doc-scope">macro</span>
+    </div>
+    <h2>The Supplement Spectrum</h2>
+    <p>From pharma-grade evidence (creatine, Vitamin D) through promising-but-murky (ashwagandha, NMN) to straight snake oil.</p>
+    <div class="doc-tier-preview">
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+    </div>
+  </div>
+
+  <div class="doc-card coming-soon">
+    <div class="doc-card-glow"></div>
+    <div class="doc-card-top">
+      <span class="doc-status">Coming Soon</span>
+      <span class="doc-scope">macro</span>
+    </div>
+    <h2>The Fitness Spectrum</h2>
+    <p>Training methodologies from evidence-based (progressive overload, RPE, periodization) through popular lore to outright broscience.</p>
+    <div class="doc-tier-preview">
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+    </div>
+  </div>
+
+  <div class="doc-card coming-soon">
+    <div class="doc-card-glow"></div>
+    <div class="doc-card-top">
+      <span class="doc-status">Coming Soon</span>
+      <span class="doc-scope">macro</span>
+    </div>
+    <h2>The Nutrition Spectrum</h2>
+    <p>Dietary frameworks from clinically validated (Mediterranean, DASH) through popular and contested (keto, carnivore) to the genuinely fringe.</p>
+    <div class="doc-tier-preview">
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+    </div>
+  </div>
+
+  <div class="doc-card coming-soon">
+    <div class="doc-card-glow"></div>
+    <div class="doc-card-top">
+      <span class="doc-status">Coming Soon</span>
+      <span class="doc-scope">macro</span>
+    </div>
+    <h2>The Sleep Spectrum</h2>
+    <p>CBT-I and sleep hygiene at one end, grounding sheets and $800 chiliPADs at the other. Tracking gadgets mapped somewhere in the middle.</p>
+    <div class="doc-tier-preview">
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+    </div>
+  </div>
+
+  <div class="doc-card coming-soon">
+    <div class="doc-card-glow"></div>
+    <div class="doc-card-top">
+      <span class="doc-status">Coming Soon</span>
+      <span class="doc-scope">macro</span>
+    </div>
+    <h2>The AI Agent Spectrum</h2>
+    <p>From validated production patterns (RAG, tool use, evals) through reasonable bets (multi-agent orchestration) to pure hype (AGI timelines, fully autonomous everything).</p>
+    <div class="doc-tier-preview">
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+    </div>
+  </div>
+
+  <div class="doc-card coming-soon">
+    <div class="doc-card-glow"></div>
+    <div class="doc-card-top">
+      <span class="doc-status">Coming Soon</span>
+      <span class="doc-scope">macro</span>
+    </div>
+    <h2>The Political Spectrum</h2>
+    <p>Mapping ideologies beyond the left–right axis. Multi-dimensional, with attention to where each framework's internal logic breaks down.</p>
+    <div class="doc-tier-preview">
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+      <div class="tier-pip" style="background:var(--border)"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ABOUT -->
+<div class="section-label">What Is This</div>
+
+<div class="about-block">
+  <h3>A field guide format for navigating contested territory</h3>
+  <p>Every domain has a full landscape: rigorous science, promising-but-early research, popular belief, and outright mythology. Most resources pick a lane — debunker or believer. Spectrum Docs try to show the whole gradient without flattening it.</p>
+  <p>Each doc places items on a tiered evidence spectrum with color-coded badges, short descriptions, and <em>mechanism boxes</em> — the star feature — which explain what's actually claimed or measured, in plain language.</p>
+  <p>Docs come in two scales: <strong>macro</strong> (broad domain, many items, lightly covered) and <strong>micro</strong> (one narrow topic, deep parameters). Items can appear in multiple docs, contextualized differently each time.</p>
+  <div class="mechbox">
+    <span>format ·</span> single HTML file · no build step · Google Fonts only<br>
+    <span>tiers ·</span> each doc sets its own tier count and labels — visual language stays consistent<br>
+    <span>tone ·</span> informative, not preachy · honest about evidence · respectful of the unexplained
+  </div>
+</div>
+
+<div class="footer-note">
+  Spectrum Docs are a reference series, not medical or financial advice.<br>
+  Evidence quality assessments reflect the state of published research — not a claim that things work or don't work.<br>
+  <br>
+  <span style="color:var(--text-muted);opacity:0.5;">spectrums · field guides for the full gradient</span>
+</div>
+
+</div>
+</body>
+</html>

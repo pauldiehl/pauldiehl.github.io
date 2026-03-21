@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Frequency Spectrum — From FDA-Approved to Fantastical</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0f;
+    --surface: #141418;
+    --surface2: #1a1a20;
+    --border: #2a2a35;
+    --text: #e8e6e1;
+    --text-dim: #8a8890;
+    --text-muted: #5a5862;
+    --accent-green: #34d399;
+    --accent-green-bg: rgba(52, 211, 153, 0.08);
+    --accent-blue: #60a5fa;
+    --accent-blue-bg: rgba(96, 165, 250, 0.08);
+    --accent-amber: #fbbf24;
+    --accent-amber-bg: rgba(251, 191, 36, 0.08);
+    --accent-orange: #fb923c;
+    --accent-orange-bg: rgba(251, 146, 60, 0.08);
+    --accent-red: #f87171;
+    --accent-red-bg: rgba(248, 113, 113, 0.08);
+    --accent-purple: #c084fc;
+    --accent-purple-bg: rgba(192, 132, 252, 0.08);
+    --accent-pink: #f472b6;
+    --accent-pink-bg: rgba(244, 114, 182, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 64px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--accent-green), var(--accent-blue), var(--accent-purple), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  header p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 28px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .tier {
+    margin-bottom: 48px;
+  }
+
+  .tier-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tier-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .tier-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+  }
+
+  .tier-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .item:hover {
+    border-color: #3a3a48;
+  }
+
+  .item-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .item-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .item-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    flex: 1;
+  }
+
+  .item-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    padding: 2px 7px;
+    border-radius: 3px;
+    background: var(--surface2);
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .item-desc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-weight: 300;
+    margin-left: 24px;
+    line-height: 1.65;
+  }
+
+  .item-mechanism {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-left: 24px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: var(--surface2);
+    border-radius: 6px;
+    line-height: 1.7;
+  }
+
+  .item-mechanism span {
+    color: var(--text-dim);
+  }
+
+  .divider {
+    text-align: center;
+    margin: 52px 0;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: var(--border);
+  }
+  .divider::before { left: 0; }
+  .divider::after { right: 0; }
+
+  .footer-note {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 300;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    line-height: 1.8;
+  }
+
+  /* Tier-specific colors */
+  .tier-1 .tier-badge { background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid rgba(52,211,153,0.2); }
+  .tier-1 .item-indicator { background: var(--accent-green); box-shadow: 0 0 8px rgba(52,211,153,0.3); }
+
+  .tier-2 .tier-badge { background: var(--accent-blue-bg); color: var(--accent-blue); border: 1px solid rgba(96,165,250,0.2); }
+  .tier-2 .item-indicator { background: var(--accent-blue); box-shadow: 0 0 8px rgba(96,165,250,0.3); }
+
+  .tier-3 .tier-badge { background: var(--accent-amber-bg); color: var(--accent-amber); border: 1px solid rgba(251,191,36,0.2); }
+  .tier-3 .item-indicator { background: var(--accent-amber); box-shadow: 0 0 8px rgba(251,191,36,0.3); }
+
+  .tier-4 .tier-badge { background: var(--accent-orange-bg); color: var(--accent-orange); border: 1px solid rgba(251,146,60,0.2); }
+  .tier-4 .item-indicator { background: var(--accent-orange); box-shadow: 0 0 8px rgba(251,146,60,0.3); }
+
+  .tier-5 .tier-badge { background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid rgba(248,113,113,0.2); }
+  .tier-5 .item-indicator { background: var(--accent-red); box-shadow: 0 0 8px rgba(248,113,113,0.3); }
+
+  .tier-6 .tier-badge { background: var(--accent-purple-bg); color: var(--accent-purple); border: 1px solid rgba(192,132,252,0.2); }
+  .tier-6 .item-indicator { background: var(--accent-purple); box-shadow: 0 0 8px rgba(192,132,252,0.3); }
+
+  .tier-7 .tier-badge { background: var(--accent-pink-bg); color: var(--accent-pink); border: 1px solid rgba(244,114,182,0.2); }
+  .tier-7 .item-indicator { background: var(--accent-pink); box-shadow: 0 0 8px rgba(244,114,182,0.3); }
+
+  @media (max-width: 640px) {
+    header h1 { font-size: 1.8rem; }
+    .tier-subtitle { display: none; }
+    .container { padding: 32px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>The Frequency Spectrum</h1>
+  <p>A comprehensive guide to resonance, vibration, and frequency-based wellness — from FDA-approved medical devices to philosophical frameworks. Organized by evidence quality.</p>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-green)"></div>FDA Approved</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-blue)"></div>Strong Evidence</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-amber)"></div>Early/Mixed Evidence</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-orange)"></div>Plausible, Unproven</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-red)"></div>No Evidence</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-purple)"></div>Experiential</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-pink)"></div>Philosophical</div>
+  </div>
+</header>
+
+<!-- TIER 1 -->
+<div class="tier tier-1">
+  <div class="tier-header">
+    <span class="tier-badge">Tier 1</span>
+    <span class="tier-title">FDA-Approved Medical Devices</span>
+    <span class="tier-subtitle">Phase 3 trials, regulatory clearance</span>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">TTFields — Tumor Treating Fields (Novocure Optune)</div>
+      <div class="item-tags"><span class="tag">cancer</span><span class="tag">wearable</span><span class="tag">Rx</span></div>
+    </div>
+    <div class="item-desc">Wearable electrode arrays delivering alternating electric fields (~200 kHz) that disrupt cancer cell division. FDA-approved for glioblastoma, metastatic NSCLC, mesothelioma, and locally advanced pancreatic cancer (Feb 2026). Worn 18+ hrs/day.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Electric fields exert physical forces on charged components of dividing cancer cells → disrupts mitotic spindle → cell death. Spares healthy cells due to different division rate &amp; morphology.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Histotripsy (HistoSonics Edison System)</div>
+      <div class="item-tags"><span class="tag">cancer</span><span class="tag">ultrasound</span><span class="tag">non-invasive</span></div>
+    </div>
+    <div class="item-desc">Focused ultrasound that mechanically shatters tumor tissue via controlled cavitation microbubbles. FDA-cleared for liver tumors (2023). 90% local tumor control at 1 year. Kidney approval pending. Non-thermal. Also triggers abscopal immune response.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Short-pulse, low-duty-cycle ultrasonic waves → cavitation bubble clouds → mechanical fractionation at sub-cellular level. Preserves collagen scaffolding (vessels, ducts).</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">PEMF — Pulsed Electromagnetic Field Therapy (bone healing)</div>
+      <div class="item-tags"><span class="tag">orthopedic</span><span class="tag">at-home</span><span class="tag">Rx</span></div>
+    </div>
+    <div class="item-desc">FDA-approved since 1979 for non-union fractures. Devices like Orthofix Physio-Stim and Cervical-Stim cleared for bone growth stimulation and cervical fusion adjunct. Used in ~72% of US hospitals for fractures that fail to heal. 80% success rate at 3+ hrs/day.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Pulsed EM field → voltage-gated Ca²⁺ channels open in osteocytes → triggers signaling cascade → osteoblastic differentiation → bone formation.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">ESWL — Extracorporeal Shockwave Lithotripsy</div>
+      <div class="item-tags"><span class="tag">urology</span><span class="tag">kidney stones</span></div>
+    </div>
+    <div class="item-desc">Focused shockwaves pulverize kidney/ureter stones non-invasively. Gold standard since 1980. Optimal at 60-90 shockwaves/min. Fragments pass naturally. Multiple generator types (electrohydraulic, piezoelectric, electromagnetic).</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Focused acoustic energy → stress waves at stone-fluid density interface → overcomes tensile strength → progressive fragmentation to &lt;1mm.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">TMS — Transcranial Magnetic Stimulation</div>
+      <div class="item-tags"><span class="tag">neuro</span><span class="tag">depression</span><span class="tag">Rx</span></div>
+    </div>
+    <div class="item-desc">FDA-cleared for treatment-resistant depression, OCD, smoking cessation, and migraine. Uses rapidly changing magnetic fields to induce electric currents in targeted brain regions. In-office procedure, typically 20-30 sessions.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Magnetic pulse → induced electric field in cortex → depolarizes neurons → modulates neural circuitry involved in mood regulation.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">VNS — Vagus Nerve Stimulation (Implanted)</div>
+      <div class="item-tags"><span class="tag">neuro</span><span class="tag">epilepsy</span><span class="tag">depression</span><span class="tag">Rx</span></div>
+    </div>
+    <div class="item-desc">Surgically implanted pulse generator delivers electrical signals to the left vagus nerve. FDA-approved for drug-resistant epilepsy (1997), treatment-resistant depression (2005), obesity (2015), and post-stroke motor rehab. 50%+ seizure reduction in ~43% of patients at 2 years. Over 100,000 implanted worldwide.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Electrical pulses at 20-30 Hz → vagal afferents → brainstem nuclei (nucleus tractus solitarius) → modulates cortical excitability, neurotransmitter release (serotonin, norepinephrine), and inflammatory pathways.</div>
+  </div>
+</div>
+
+<!-- TIER 2 -->
+<div class="tier tier-2">
+  <div class="tier-header">
+    <span class="tier-badge">Tier 2</span>
+    <span class="tier-title">Strong Evidence, Emerging Clinical Use</span>
+    <span class="tier-subtitle">Clinical data, some FDA clearance</span>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Li-ESWT for ED — Low-Intensity Shockwave Therapy</div>
+      <div class="item-tags"><span class="tag">ED</span><span class="tag">at-home</span><span class="tag">Phoenix device</span></div>
+    </div>
+    <div class="item-desc">Acoustic shockwaves applied to penile tissue. Clinical studies show ~30% improvement in IIEF scores. 65-70% sustained benefit at 6 months for mild vasculogenic ED. Phoenix is a radial wave at-home device (~$879). Clinical devices use focused shockwaves.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Controlled microtrauma → neovascularization (new blood vessel growth) → stem cell proliferation → nerve regeneration. Brute-force mechanical, NOT frequency-targeted.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">PEMF for Pain — Targeted Pulsed EM (Orthocor, SofPulse)</div>
+      <div class="item-tags"><span class="tag">pain</span><span class="tag">at-home</span><span class="tag">FDA-cleared</span></div>
+    </div>
+    <div class="item-desc">FDA-cleared for joint/soft tissue pain management. 36% pain reduction vs 10% for standard of care in RCT. Specific devices use 27.12 MHz carrier signal. Also studied for osteoarthritis, post-surgical pain, low back pain with positive results.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Targeted PEMF → activates nitric oxide (NO) signaling cascade via Ca²⁺/calmodulin pathway → anti-inflammatory and analgesic effects.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">HIFU — High-Intensity Focused Ultrasound</div>
+      <div class="item-tags"><span class="tag">cancer</span><span class="tag">prostate</span><span class="tag">uterine fibroids</span></div>
+    </div>
+    <div class="item-desc">Focused ultrasound that thermally ablates tissue. FDA-approved for uterine fibroids and bone mets. Used clinically for prostate cancer in many countries. Related to histotripsy but uses thermal rather than mechanical destruction.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Focused acoustic energy → thermal coagulation necrosis at focal point (60-85°C) → tissue ablation. MRI-guided for precision.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Red Light Therapy / Photobiomodulation (PBM)</div>
+      <div class="item-tags"><span class="tag">skin</span><span class="tag">pain</span><span class="tag">at-home</span><span class="tag">$100-$2k</span></div>
+    </div>
+    <div class="item-desc">LED panels/masks delivering red (630-660nm) and near-infrared (810-850nm) light. FDA-cleared for wrinkles, hair regrowth, pain relief. Evidence graded 1A for skin rejuvenation and hair growth. Also studied for TBI recovery, joint pain, wound healing. At-home panels (Joovv, Mito, PlatinumLED) widely available. Consumer devices vary enormously in actual power output.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Photons absorbed by cytochrome C oxidase (Complex IV) in mitochondria → displaces inhibitory nitric oxide → enhanced ATP production → increased cellular energy, proliferation, and repair signaling.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">gammaCore — Non-Invasive Vagus Nerve Stimulation (nVNS)</div>
+      <div class="item-tags"><span class="tag">headache</span><span class="tag">at-home</span><span class="tag">Rx</span></div>
+    </div>
+    <div class="item-desc">Handheld device held against the neck that stimulates the cervical vagus nerve transcutaneously. FDA-cleared for cluster headache, migraine, and medication overuse headache. 2-minute sessions, up to 12x/day. Uses 5 kHz sine wave pulses at 25 Hz. Prescription required. The non-invasive cousin of implanted VNS.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Electrical pulses penetrate skin/muscle to stimulate vagal afferents → modulates trigeminal pain pathways and cortical spreading depression → headache relief without systemic medication.</div>
+  </div>
+</div>
+
+<!-- TIER 3 -->
+<div class="tier tier-3">
+  <div class="tier-header">
+    <span class="tier-badge">Tier 3</span>
+    <span class="tier-title">Legitimate Lab Science, Pre-Clinical</span>
+    <span class="tier-subtitle">Peer-reviewed, not yet human therapy</span>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">SRET — Resonant Frequency Virus Destruction</div>
+      <div class="item-tags"><span class="tag">antiviral</span><span class="tag">GHz</span><span class="tag">lab only</span></div>
+    </div>
+    <div class="item-desc">Microwaves at virus-specific resonant frequencies (4-8 GHz for SARS-CoV-2, ~8 GHz for H3N2) physically fracture viral capsids/envelopes. 90% inactivation of aerosolized SARS-CoV-2 demonstrated. Viruses resonate at GHz, human cells at MHz — selective targeting theoretically possible. Published in Nature Scientific Reports, AIP.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Structure-Resonant Energy Transfer (SRET) — EM waves excite confined acoustic vibrations (CAVs) inside viral particles → mechanical stress → physical fracture of capsid/envelope. Non-thermal. RNA genome preserved (not degraded).</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Tumor-Specific RF Amplitude Modulation</div>
+      <div class="item-tags"><span class="tag">cancer</span><span class="tag">27.12 MHz</span><span class="tag">Phase I/II</span></div>
+    </div>
+    <div class="item-desc">Intrabuccal (mouth-held) device delivering 27.12 MHz RF fields, amplitude-modulated at tumor-specific frequencies. Phase I/II showed antitumor effect in 48.8% of HCC patients. One near-complete response lasting 5+ years. Different from Rife — uses empirically identified tumor-specific modulation frequencies.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Tumor-specific frequencies modulate gene expression involved in migration/invasion → disrupt mitotic spindle → cancer cell death. Tissue- and tumor-type specific.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">PEMF for Cartilage Regeneration (NASA)</div>
+      <div class="item-tags"><span class="tag">joint health</span><span class="tag">NASA tech</span><span class="tag">pre-clinical</span></div>
+    </div>
+    <div class="item-desc">NASA-developed PEMF device targeting cartilage degradation in synovial joints. Demonstrated genetic upregulation of chondrocyte growth factors in early-stage OA cells. Technology Readiness Level 6. Patent available for licensing.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Tuned PEMF → ion resonance (Ca²⁺, K⁺, Mg²⁺) at sub-cellular level → modifies genetic regulation → increased cell growth rate, faster differentiation, selective gene induction.</div>
+  </div>
+</div>
+
+<!-- TIER 4 -->
+<div class="tier tier-4">
+  <div class="tier-header">
+    <span class="tier-badge">Tier 4</span>
+    <span class="tier-title">Plausible Mechanism, Mixed/Early Evidence</span>
+    <span class="tier-subtitle">Real physics, inconclusive human data</span>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Binaural Beats — Auditory Brainwave Entrainment</div>
+      <div class="item-tags"><span class="tag">neuro</span><span class="tag">at-home</span><span class="tag">headphones</span></div>
+    </div>
+    <div class="item-desc">Two tones of slightly different frequency (one per ear) create a perceived "beat" at the difference frequency (1-40 Hz). Systematic review of 14 EEG studies: 5 support entrainment, 8 contradict, 1 mixed. Some positive results for tinnitus, sleep, anxiety. Gateway Tapes (Monroe Institute) and SeptaSync are consumer products in this space. SeptaSync layers 7 beats with 14 carrier frequencies ($5-$500/mo).</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Dichotic tones → medial superior olive (brainstem) detects phase difference → perceived beat → theorized frequency-following response (FFR) of neural oscillations. Entrainment hypothesis remains unconfirmed.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Schumann Resonance Devices (7.83 Hz)</div>
+      <div class="item-tags"><span class="tag">sleep</span><span class="tag">at-home</span><span class="tag">ELF</span></div>
+    </div>
+    <div class="item-desc">Devices emitting Earth's fundamental EM frequency (7.83 Hz). One double-blind RCT (n=40) showed improved sleep onset latency on polysomnography. The frequency overlaps with alpha/theta brainwave range. NASA has studied Schumann resonance effects on astronaut physiology. Interesting but very early.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> 7.83 Hz ELF field → may entrain brain into alpha/theta state → Ca²⁺ channel modulation → improved sleep architecture. Correlational with brainwave bands, causation unclear.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Consumer PEMF Mats (HealthyLine, PureWave, BEMER)</div>
+      <div class="item-tags"><span class="tag">wellness</span><span class="tag">at-home</span><span class="tag">$500-$6k</span></div>
+    </div>
+    <div class="item-desc">Full-body PEMF mats marketed for pain, sleep, circulation, and general wellness. FDA-registered as Class I/II wellness devices (not FDA-approved for specific conditions). Mechanism is real (same as clinical PEMF), but consumer devices vary enormously in quality, signal parameters, and evidence. Mostly German/Austrian/Swiss manufactured.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Same Ca²⁺/NO cascade as clinical PEMF, but parameters (frequency, intensity, waveform) may not match clinically validated protocols. Buyer beware re: specific claims.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Earthing / Grounding Mats</div>
+      <div class="item-tags"><span class="tag">wellness</span><span class="tag">at-home</span><span class="tag">$30-$200</span></div>
+    </div>
+    <div class="item-desc">Conductive mats/sheets connecting the body to Earth's electric potential. Some small studies show reduced inflammation markers, improved sleep, pain reduction. Theory: restores natural exposure to Earth's EM field including Schumann frequencies. Cheap and harmless. Plausible but under-studied.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Electron transfer from Earth → neutralizes free radicals → anti-inflammatory effect. Also potential Schumann resonance exposure. Small RCTs exist but methodological concerns.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">taVNS — Transcutaneous Auricular Vagus Nerve Stimulation (Ear Clips)</div>
+      <div class="item-tags"><span class="tag">neuro</span><span class="tag">at-home</span><span class="tag">$50-$500</span></div>
+    </div>
+    <div class="item-desc">Small electrode clips on the ear (tragus or cymba conchae) stimulate the auricular branch of the vagus nerve. Non-invasive cousin of FDA-approved implanted VNS. Growing research for depression, tinnitus, epilepsy, cognitive enhancement. Mechanism is real (vagal afferents innervate the ear), but optimal parameters unknown. Consumer devices (Pulsetto, Nurosym) not FDA-cleared. Research-grade devices exist (Soterix).</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Electrical stimulation of auricular vagus branch → brainstem activation (confirmed via fMRI) → parasympathetic modulation. Real anatomy, real nerve, but consumer devices can't match clinical VNS parameters.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Infrared Sauna</div>
+      <div class="item-tags"><span class="tag">wellness</span><span class="tag">at-home</span><span class="tag">$500-$6k</span></div>
+    </div>
+    <div class="item-desc">Uses far-infrared wavelengths (above 1000nm) to heat the body directly rather than heating air like traditional saunas. Some studies show benefits for cardiovascular health, chronic pain, and detoxification. Often marketed alongside "frequency healing" but the mechanism is primarily thermal, not frequency-based. The heat stress itself triggers real physiological responses (heat shock proteins, cardiovascular conditioning).</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Far-infrared radiation → direct tissue heating → vasodilation, sweating, heat shock protein expression, cardiovascular conditioning. Works through heat, not "frequency" — but the heat is real and beneficial.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Whole Body Vibration Plates</div>
+      <div class="item-tags"><span class="tag">fitness</span><span class="tag">at-home</span><span class="tag">$200-$3k</span></div>
+    </div>
+    <div class="item-desc">Platforms vibrating at 15-60 Hz that you stand/exercise on. Originally developed for Soviet cosmonauts to combat bone loss. Some evidence for bone density in postmenopausal women, balance in elderly, muscle strength. NASA studied extensively. Often over-marketed as a weight loss tool, but the bone/balance evidence has some support.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Mechanical vibration → stretch reflex activation → muscle contraction → mechanical loading on bone → osteogenic response. Genuinely uses a specific frequency, and the frequency matters for the effect.</div>
+  </div>
+</div>
+
+<div class="divider">— crossing the evidence threshold —</div>
+
+<!-- TIER 5 -->
+<div class="tier tier-5">
+  <div class="tier-header">
+    <span class="tier-badge">Tier 5</span>
+    <span class="tier-title">No Clinical Evidence / Debunked Specifics</span>
+    <span class="tier-subtitle">May be harmless, but claims unproven</span>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Rife Machines (Consumer Frequency Generators)</div>
+      <div class="item-tags"><span class="tag">cancer claims</span><span class="tag">at-home</span><span class="tag">$200-$5k</span></div>
+    </div>
+    <div class="item-desc">Consumer devices claiming to kill pathogens/cancer via specific electromagnetic frequencies (100-300 kHz range). Based on Royal Raymond Rife's 1930s radionics theory. NOT FDA-approved. Multiple fraud convictions. No clinical trials. Uses different frequencies than actual lab research on virus/cell destruction. The physics of resonant destruction is real (see SRET above) but these devices don't implement it validly.</div>
+    <div class="item-mechanism"><span>Claimed mechanism:</span> "Mortal oscillatory rate" for each pathogen → EMF at that frequency shatters it. <span>Reality:</span> Energy output is far too low, frequencies don't match validated resonances, and no controlled studies exist.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Solfeggio Frequencies (396 Hz, 528 Hz, etc.)</div>
+      <div class="item-tags"><span class="tag">sound</span><span class="tag">at-home</span><span class="tag">free-$</span></div>
+    </div>
+    <div class="item-desc">Specific audio frequencies claimed to have healing properties: 396 Hz (liberating guilt), 417 Hz (facilitating change), 528 Hz ("DNA repair" / "love frequency"), 639 Hz (relationships), 741 Hz (expression), 852 Hz (intuition). Widely available on YouTube/Spotify. No peer-reviewed evidence for specific healing claims. Historical attribution to ancient hymns is fabricated.</div>
+    <div class="item-mechanism"><span>Claimed mechanism:</span> Specific frequencies resonate with DNA/cellular structures. <span>Reality:</span> No demonstrated physical mechanism. Any relaxation benefit likely comes from music/meditation context, not specific Hz values.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Tuning Fork Therapy</div>
+      <div class="item-tags"><span class="tag">sound</span><span class="tag">at-home</span><span class="tag">$20-$300</span></div>
+    </div>
+    <div class="item-desc">Calibrated tuning forks (often 128 Hz or 432 Hz) applied to body or held near it. Used in "biofield tuning" and sound healing modalities. Can produce pleasant vibratory sensations. No peer-reviewed evidence for specific therapeutic claims beyond relaxation/mindfulness benefits. 128 Hz forks do have legitimate medical diagnostic use (testing vibration sense in neuropathy).</div>
+    <div class="item-mechanism"><span>Claimed mechanism:</span> Vibrations "rebalance" the body's energy field. <span>Reality:</span> Tactile vibration + ritual context → relaxation response. Diagnostic use of 128 Hz fork for neurological exams is real but separate.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">432 Hz Tuning (vs Standard 440 Hz)</div>
+      <div class="item-tags"><span class="tag">music</span><span class="tag">free</span></div>
+    </div>
+    <div class="item-desc">Claim that music tuned to A=432 Hz is more "natural" and healing than standard A=440 Hz concert pitch. Often linked to claims about Schumann resonance, sacred geometry, and Pythagorean mathematics. A few small studies show subjective preference for 432 Hz in some listeners. No evidence for physiological superiority. The historical narrative is largely fabricated.</div>
+    <div class="item-mechanism"><span>Claimed mechanism:</span> 432 Hz "aligns with nature" and resonates with water/DNA. <span>Reality:</span> Pitch standard is an arbitrary cultural convention. 8 Hz difference is perceptually subtle. Any A= tuning could be called "natural."</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">QiCoil / Spooky2 / Frequency-Specific Microcurrent (FSM) Devices</div>
+      <div class="item-tags"><span class="tag">at-home</span><span class="tag">$200-$3k</span><span class="tag">Rife-adjacent</span></div>
+    </div>
+    <div class="item-desc">Consumer devices that claim to deliver "healing frequencies" via electromagnetic coils (QiCoil), scalar waves (Spooky2), or microcurrent (FSM). QiCoil markets specific "frequency recipes" for conditions. Spooky2 is an open-source Rife-adjacent system with a dedicated community. FSM claims tissue-specific frequencies (40 Hz for nerve, 10 Hz for inflammation, etc.). All lack rigorous clinical validation despite enthusiastic user communities.</div>
+    <div class="item-mechanism"><span>Claimed mechanism:</span> Specific frequencies target specific tissues or conditions. <span>Reality:</span> These are essentially modern Rife variants with better marketing. The frequency-to-condition mappings are not derived from validated research. May produce placebo/relaxation effects.</div>
+  </div>
+</div>
+
+<!-- TIER 6 -->
+<div class="tier tier-6">
+  <div class="tier-header">
+    <span class="tier-badge">Tier 6</span>
+    <span class="tier-title">Experiential / Subjective Benefit</span>
+    <span class="tier-subtitle">Real experiences, untestable mechanisms</span>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Sound Baths / Singing Bowls / Gong Therapy</div>
+      <div class="item-tags"><span class="tag">sound</span><span class="tag">in-person</span><span class="tag">$20-$100/session</span></div>
+    </div>
+    <div class="item-desc">Immersive sessions with singing bowls (Tibetan/crystal), gongs, chimes. Produces rich harmonic overtones. Many practitioners report deep relaxation, altered states, emotional release. Likely works via deep relaxation response, sensory absorption, and ritual context rather than specific frequency effects. Enjoyable and very low risk.</div>
+    <div class="item-mechanism"><span>Likely mechanism:</span> Rich acoustic environment → parasympathetic activation → deep relaxation → stress hormone reduction. The "frequency healing" framing may be unnecessary — it's good meditation with pleasant sound.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Cymatics / Chladni Plates</div>
+      <div class="item-tags"><span class="tag">visual</span><span class="tag">physics demo</span><span class="tag">DIY</span></div>
+    </div>
+    <div class="item-desc">Sand/water on vibrating plates forms geometric patterns at resonant frequencies. The physics is absolutely real and beautiful — this IS how standing waves organize matter. Often extrapolated to claims about frequencies organizing cellular/bodily structures. The leap from "sand on a plate" to "frequencies heal your organs" is the unproven part. Great physics education, though.</div>
+    <div class="item-mechanism"><span>Real mechanism:</span> Standing waves → nodal patterns → particles collect at nodes. <span>Extrapolation:</span> "If sound organizes sand, imagine what it does to your cells." Leap is not supported — biological systems are vastly more complex than sand on a plate.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Hemi-Sync / Gateway Tapes (Monroe Institute)</div>
+      <div class="item-tags"><span class="tag">consciousness</span><span class="tag">at-home</span><span class="tag">$30-$400</span></div>
+    </div>
+    <div class="item-desc">Audio system using binaural beats + guided meditation developed by Robert Monroe. Made famous by the declassified CIA "Gateway Process" report. Users report altered states, out-of-body experiences, enhanced meditation. The binaural beat component has weak evidence (see Tier 4), but the guided meditation + expectation + practice likely produces genuine subjective experiences.</div>
+    <div class="item-mechanism"><span>Mechanism:</span> Binaural entrainment (debatable) + progressive relaxation + guided visualization + set/setting → altered states of consciousness. The tapes may "work" even if binaural beats aren't the active ingredient.</div>
+  </div>
+</div>
+
+<!-- TIER 7 -->
+<div class="tier tier-7">
+  <div class="tier-header">
+    <span class="tier-badge">Tier 7</span>
+    <span class="tier-title">Philosophical / Metaphysical Frameworks</span>
+    <span class="tier-subtitle">Belief systems, not testable claims</span>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Tartaria Bells / Lost Civilization Frequency Technology</div>
+      <div class="item-tags"><span class="tag">alt-history</span><span class="tag">TikTok</span><span class="tag">metaphysical</span></div>
+    </div>
+    <div class="item-desc">Claim that massive bells in Old World cathedrals were "frequency generators" built by the lost civilization of Tartaria to heal, cleanse, or power surrounding areas via resonance. Tied to the broader "Tartaria" alt-history narrative (a vast empire erased from history). Commercial "Tartarian Healing Frequencies" albums on Spotify/Apple Music are just Solfeggio frequencies with bell samples and rebranded packaging. The bells are real (medieval), the civilization is fabricated, the healing frequencies are recycled.</div>
+    <div class="item-mechanism"><span>Framework:</span> Combines alt-history conspiracy (Tartaria) + Solfeggio frequencies + sound healing aesthetics into a TikTok-native narrative. The actual audio products are indistinguishable from standard frequency meditation tracks with bell timbres.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Dr. Masaru Emoto — Water Memory / Hidden Messages in Water</div>
+      <div class="item-tags"><span class="tag">metaphysical</span><span class="tag">debunked</span></div>
+    </div>
+    <div class="item-desc">Claim that human emotions/words/music affect the crystalline structure of water (positive words → beautiful crystals, negative → ugly). Published as popular books with ice crystal photography. Never replicated under double-blind conditions. Rejected by scientific community. Randi Foundation offered $1M prize to replicate — never claimed. Beautiful idea, no evidence.</div>
+    <div class="item-mechanism"><span>Claimed mechanism:</span> Water has "memory" that responds to human consciousness/vibration. <span>Reality:</span> Ice crystal formation is determined by temperature, humidity, impurities, and nucleation — not intent. Photography was selectively curated.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Law of Vibration / Frequency of Attraction</div>
+      <div class="item-tags"><span class="tag">metaphysical</span><span class="tag">philosophy</span></div>
+    </div>
+    <div class="item-desc">Idea that everything in the universe vibrates at a specific frequency, and that matching your personal "vibration" to desired outcomes attracts them. Roots in Hermeticism ("The Kybalion"), popularized by New Thought movement and modern Law of Attraction teachings. Not a scientific claim — it's a philosophical/spiritual framework that borrows physics vocabulary.</div>
+    <div class="item-mechanism"><span>Framework:</span> Uses "frequency" and "vibration" metaphorically, not physically. The kernel of truth — that atoms vibrate, everything has resonant frequencies — is real physics. The extrapolation to consciousness and manifestation is metaphysics, not physics.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Sacred Geometry / Fibonacci in Healing</div>
+      <div class="item-tags"><span class="tag">metaphysical</span><span class="tag">philosophy</span></div>
+    </div>
+    <div class="item-desc">Application of mathematical patterns (Fibonacci spirals, golden ratio, Flower of Life, Metatron's Cube) to healing and wellness contexts. The math itself is real and does appear throughout nature. The leap to therapeutic application (e.g., meditating on geometric forms heals the body) is a philosophical framework, not a testable medical claim.</div>
+    <div class="item-mechanism"><span>Framework:</span> Real mathematical patterns in nature → interpreted as evidence of fundamental universal harmony → extrapolated to human body/consciousness. Aesthetically compelling, scientifically unfalsifiable.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">Radionics / Subtle Energy Devices</div>
+      <div class="item-tags"><span class="tag">metaphysical</span><span class="tag">at-home</span><span class="tag">$50-$10k</span></div>
+    </div>
+    <div class="item-desc">Devices claiming to detect and transmit "subtle energy" or "life force" frequencies. Includes orgone accumulators (Wilhelm Reich), scalar wave generators, and various "biofield" devices. Based on vitalist philosophy — the idea that living systems have an energy field distinct from known physics. No scientific evidence for the claimed energy types.</div>
+    <div class="item-mechanism"><span>Claimed mechanism:</span> Devices interact with the body's "biofield" or "subtle energy." <span>Reality:</span> No scientific instrument has detected these fields. Devices often contain simple oscillator circuits with no therapeutic validation.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-top">
+      <div class="item-indicator"></div>
+      <div class="item-name">"Suppressed Technology" Narratives (Tesla, Med Beds, Free Energy)</div>
+      <div class="item-tags"><span class="tag">conspiracy</span><span class="tag">alt-history</span></div>
+    </div>
+    <div class="item-desc">Recurring narrative that Tesla, Rife, Reich, and others discovered frequency-based cures that were suppressed by the AMA/pharma/government. "Med Beds" (frequency-based healing pods) are a QAnon-adjacent claim. Tesla did real, important work on resonance and AC power — but the extrapolation to "he had a frequency cure for everything" is mythological. The suppression narrative is the connective tissue linking almost every item on this list's lower tiers.</div>
+    <div class="item-mechanism"><span>Framework:</span> Real historical figures (Tesla, Rife) + real physics concepts (resonance, EM fields) + institutional distrust → unfalsifiable narrative where absence of evidence = evidence of suppression. Powerful storytelling, not science.</div>
+  </div>
+</div>
+
+<div class="footer-note">
+  Compiled March 2026 as a reference guide. Not medical advice.<br>
+  Evidence tiers reflect state of peer-reviewed research, not personal judgment on subjective experience.<br>
+  Many items in lower tiers are enjoyable, relaxing, and personally meaningful — just not clinically validated.<br>
+  The physics of resonance is real. The question is always: does THIS device, at THESE parameters, produce THIS claimed effect in a human body?
+</div>
+
+</div>
+</body>
+</html>
